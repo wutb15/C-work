@@ -15,5 +15,29 @@
 In Nmode,we can choose "Profile view" and "Book view".
 In Mmode , we can choose "Manager view" ,where we can search ,insert ,delete the information of the trains.
 
+
+##Design of the Model
+- The user Model
+- The manager Model
+- The train Model
+
+
+
+
+##Design of the Database
+
+- We will use the sqlite
+- We will use the QsqlTableModel to do all the job.
+
+```sql
+TABLE user {
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	username VARCHAR(40) NOT NULL,
+	password VARCHAR(40) NOT NULL
+	
+}
+
+```
+
 //ToDo.
 	
