@@ -44,3 +44,5 @@ Win32/
 *.VC.*
 *.dir/
 *.sln
+*.pro.user
+
