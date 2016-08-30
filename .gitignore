@@ -45,4 +45,7 @@ Win32/
 *.dir/
 *.sln
 *.pro.user
+*.vs/
+*.aps
+
 
