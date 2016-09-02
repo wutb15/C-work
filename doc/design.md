@@ -234,6 +234,7 @@ TABLE trainstations{
 	station_id  INT  NOT NULL,
 	miles		INT  NOT NULL,
     number		INT  NOT NULL ,//表示这个站在这趟车上的位次，从零开始
+	booknumber  INT  DEFAULT 0;
 	FOREIGN KEY(trainnumber) REFERENCES trains(trainnumber)
 	FOREIGN KEY(station_id)	 REFERENCES stations(id)
 	
