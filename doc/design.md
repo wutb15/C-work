@@ -30,10 +30,9 @@ In Mmode , we can choose "Manager view" ,where we can search ,insert ,delete the
 	class Handler
 	{
 		protected:
-			QString	username,
-			QString password,
-			Handlertype type,
-			
+			QString	username;
+			QString password;
+			QSqlRecord* record;
 		public:
 			QString getusername(),
 			QString getpassword(),
@@ -49,7 +48,7 @@ In Mmode , we can choose "Manager view" ,where we can search ,insert ,delete the
 	class User:public Handler
 	{
 		protected:
-			Profile* personalprofile;
+			int personalprofile_id;
 			QString extrainformation;
 		public:
 			void booktickets(Profile* profile,int begin_id,int end_id);
