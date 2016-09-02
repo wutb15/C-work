@@ -13,8 +13,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        trainmanager.cpp
+        trainmanager.cpp \
+    mainwindow.cpp
 
-HEADERS  += trainmanager.h
+HEADERS  += trainmanager.h \
+    login.h
 
-FORMS    += trainmanager.ui
+FORMS    += trainmanager.ui \
+    mainwindow.ui
