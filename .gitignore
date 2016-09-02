@@ -49,3 +49,8 @@ Win32/
 *.aps
 
 
+#QtCreator
+
+*Debug*
+
+

@@ -17,13 +17,16 @@ SOURCES += main.cpp\
     mainwindow.cpp\
 	Handle.cpp \
     User.cpp \
-    Manager.cpp
+    Manager.cpp \
+    BasicData.cpp
 
 HEADERS  += trainmanager.h \
     login.h \
     Handle.h \
     User.h \
-    Manager.h
+    Manager.h \
+    BasicData.h \
+    mainwindow.h
 
 FORMS    += trainmanager.ui \
     mainwindow.ui
