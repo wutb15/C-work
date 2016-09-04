@@ -17,7 +17,9 @@ SOURCES += main.cpp\
     mainwindow.cpp\
 	Handle.cpp \
     User.cpp \
-    Manager.cpp
+    Manager.cpp \
+    Forms/profileform.cpp \
+    Forms/form.cpp
 
 HEADERS  += trainmanager.h \
     login.h \
@@ -25,7 +27,13 @@ HEADERS  += trainmanager.h \
     User.h \
     Manager.h \
     mainwindow.h \
-    BasicDataField.h
+    BasicDataField.h \
+    Forms/profileform.h \
+    Forms/form.h
 
 FORMS    += trainmanager.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    Forms/form.ui
+
+RESOURCES += \
+    work.qrc

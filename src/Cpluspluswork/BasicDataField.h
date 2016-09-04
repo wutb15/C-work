@@ -47,4 +47,16 @@ enum class TrainStationField
     TrainStation_BookedNumber//被预定的票数
 };
 
+enum class UserField
+{
+    User_UserName,
+    User_Password,
+    User_Money,
+    User_Extrainformation
+};
 
+enum class ManagerField
+{
+    Manager_UserName,
+    Manager_Password,
+};
