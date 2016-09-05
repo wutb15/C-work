@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include"login.h"
 #include<QtGui>
 #include<QtSql/QSqlQuery>
 #include<QMessageBox>
@@ -21,21 +20,19 @@ void MainWindow::on_logButton_clicked()//用户点击登录按钮
 {
     if(ui->comboBox->currentText()=="Passenger")//身份为乘客
     {
-        QSqlQue query1;
-        query1.prepare("select *from passengers where paName=?");
-        query1.addBindValue(ui->lineEdit1->text());
-        query1.exec();
-        if (query1.next())//在数据库中查到了该用户名,开始检测密码是否正确
+
+        if ()//在数据库中查到了该用户名,开始检测密码是否正确
         {
-            int password=query1.value(1).toInt;
+
             if(password!=ui->lineEdit2->text().toInt())//密码错误，发出警告信息
             {
                 QMessage::warning(this,tr("登录失败！"),tr("密码错误"),QMessageBox::Close);
             }
             else//用户名和密码都正确
             {
-                identify=0;//身份为乘客
                 accept();
+                this->close();
+                User user1(ui->lineEdit1);
             }
         }
         else//用户名不存在，发出警告
@@ -47,7 +44,6 @@ void MainWindow::on_logButton_clicked()//用户点击登录按钮
     {
         if(ui->lineEdit1->text()=="Admin"&&ui->lineEdit2->text()=="123456")
         {
-            identify=1;//标记身份为管理员
             accept();
         }
         else
@@ -78,4 +74,9 @@ void MainWindow::on_newButton_clicked()//用户点击注册按钮
     }
     ui->lineEdit1->clear();
     ui->lineEdit2->clear();
+}
+
+void MainWindow::on_exitButton_clicked()
+{
+    this->close();
 }
