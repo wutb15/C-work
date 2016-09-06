@@ -13,7 +13,6 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        trainmanager.cpp \
     mainwindow.cpp\
 	Handle.cpp \
     User.cpp \
@@ -21,7 +20,7 @@ SOURCES += main.cpp\
     Forms/profileform.cpp \
     Forms/form.cpp
 
-HEADERS  += trainmanager.h \
+HEADERS  +=
     login.h \
     Handle.h \
     User.h \
@@ -31,7 +30,7 @@ HEADERS  += trainmanager.h \
     Forms/profileform.h \
     Forms/form.h
 
-FORMS    += trainmanager.ui \
+FORMS    +=
     mainwindow.ui \
     Forms/form.ui
 
