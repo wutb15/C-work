@@ -20,8 +20,7 @@ SOURCES += main.cpp\
     Forms/profileform.cpp \
     Forms/form.cpp
 
-HEADERS  +=
-    login.h \
+HEADERS  += login.h \
     Handle.h \
     User.h \
     Manager.h \
@@ -30,8 +29,7 @@ HEADERS  +=
     Forms/profileform.h \
     Forms/form.h
 
-FORMS    +=
-    mainwindow.ui \
+FORMS    +=mainwindow.ui \
     Forms/form.ui
 
 RESOURCES += \
