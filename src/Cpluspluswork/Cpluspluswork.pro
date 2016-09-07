@@ -23,8 +23,7 @@ SOURCES += main.cpp\
     Forms/trainstationform.cpp \
     basicdata.cpp
 
-HEADERS  += login.h \
-    Handle.h \
+HEADERS  += Handle.h \
     User.h \
     Manager.h \
     mainwindow.h \

@@ -60,3 +60,4 @@ enum class ManagerField
     Manager_UserName,
     Manager_Password,
 };
+#endif

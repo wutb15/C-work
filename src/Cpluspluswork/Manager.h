@@ -5,10 +5,10 @@
 class Manager:public Handle
 {
 public:
-      Mananger(QSqlRecord&src);
-      ~Manager();
-      virtual QSqlRecord& toSqlRecord();
-      virtual void  load(QSqlRecord& src);
+      Manager(QSqlRecord&src);
+      ~Manager(){}//TODO
+      //QSqlRecord& toSqlRecord(){}
+      void  load(QSqlRecord& src){}//TODO
 
 };
 

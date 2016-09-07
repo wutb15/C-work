@@ -19,6 +19,6 @@ void Form::on_addButton_clicked()
 
 void Form::on_deleteButton_clicked()
 {
-    this->delteItem();
+    this->deleteItem();
 }
 

@@ -24,8 +24,8 @@ public:
     void    setpassword(QString src);
     virtual ~Handle();
     Handle();
-    virtual QSqlRecord& toSqlRecord();
-    virtual void  load(QSqlRecord& src);
+    //virtual QSqlRecord& toSqlRecord()=0;
+    virtual void  load(QSqlRecord& src)=0;
 
 };
 

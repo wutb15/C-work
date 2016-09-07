@@ -102,7 +102,7 @@ void ProfileForm::createTable()
     tableModel=new QSqlRelationalTableModel(this);
     tableModel->setTable("profiles");
     tableModel->setSort(static_cast<int>(ProfileField::Profile_Id),Qt::AscendingOrder);
-    tableModel->setFilter(("username = " + _username);
+    tableModel->setFilter(("username = " + _username));
     tableModel->select();
 
 

@@ -13,7 +13,7 @@ class BasicData
 {
 public:
     BasicData();
-    virtual ~BasicData();
+    virtual ~BasicData(){}//TODO;
 protected:
     QSqlRecord* _record;
 };

@@ -71,7 +71,7 @@ void TrainStationForm::createContents()
     int col_con=1;
 
     ui.gridLayout->addWidget(this->trainnumberLabel,0,col_lab);
-    ui.gridLayout->addWidget(this->trainnumberEdit,0,col_con);
+    ui.gridLayout->addWidget(this->trainnumberCombo,0,col_con);
 
     ui.gridLayout->addWidget(this->arrivetimeLabel,1,col_lab);
     ui.gridLayout->addWidget(this->arrivetimeEdit,1,col_con);
@@ -146,6 +146,33 @@ void TrainStationForm::createMap()
     mapper->addMapping(this->bookedEdit,static_cast<int>(TrainStationField::TrainStation_BookedNumber));
     mapper->addMapping(this->milesEdit,static_cast<int>(TrainStationField::TrainStation_Miles));
 
+
+
+}
+
+void TrainStationForm::addItem()
+{
+    int row=mapper->currentIndex();
+    mapper->submit();
+    tableModel->insertRow(row);
+    mapper->setCurrentIndex(row);
+
+    this->milesEdit->clear();
+    this->bookedEdit->clear();
+    this->arrivetimeEdit->clear();
+    this->starttimeEdit->clear();
+
+
+    this->arrivetimeEdit->setFocus();
+    //TODO
+}
+
+void TrainStationForm::deleteItem()
+{
+    int row=mapper->currentIndex();
+    tableModel->removeRow(row);
+    mapper->submit();
+    mapper->setCurrentIndex(qMin(row,tableModel->rowCount()-1));
 
 
 }

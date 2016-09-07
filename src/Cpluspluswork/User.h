@@ -5,13 +5,12 @@
 class User : public Handle
 {
 protected:
-    int personalprofile_id;
+    double money;
     QString extrainformation;
 public:
-    void booktickets(int begin_id,int end_id);
     User(QSqlRecord &src);
-    QSqlRecord& toSqlRecord();
-    void load(QSqlRecord &src);
+  //  QSqlRecord& toSqlRecord(){}
+    void load(QSqlRecord &src){}//TODO
 
 };
 

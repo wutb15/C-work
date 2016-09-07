@@ -12,7 +12,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->lineEdit2->setEchoMode(QLineEdit::Password);//密码设置为不可见
+    ui->passwordEdit->setEchoMode(QLineEdit::Password);//密码设置为不可见
+    ui->typeBox->insertItem(0,"Passenger");
+    ui->typeBox->insertItem(1,"Admin");
 }
 
 MainWindow::~MainWindow()
@@ -34,19 +36,19 @@ void MainWindow::on_logButton_clicked()//用户点击登录按钮
 
             if(user.record(0).value("password").toString()!=ui->passwordEdit->text())//密码错误，发出警告信息
             {
-                QMessage::warning(this,tr("登录失败！"),tr("密码错误"),QMessageBox::Close);
+                QMessageBox::warning(this,tr("failure"),tr("password wrong or username doesn't exist"),QMessageBox::Close);
             }
             else//用户名和密码都正确
             {
                 handler=new User(user.record(0));
-                accept();
+               // accept();
                 this->close();
 
             }
         }
         else//用户名不存在，发出警告
         {
-            QMessage::warning(this,tr("登录失败！"),tr("用户名不存在"),QMessageBox::Close);
+            QMessageBox::warning(this,tr("failure"),tr("password wrong or username doesn't exist "),QMessageBox::Close);
         }
     }
     else//身份为管理员
@@ -62,17 +64,17 @@ void MainWindow::on_logButton_clicked()//用户点击登录按钮
             {
 
                 handler=new Manager(manager.record(0));
-                accept();
+                //accept();
                 this->close();
 
             }
         }
         else
-            QMessage::warning(this,tr("登录失败！"),tr("用户名或密码错误"),QMessageBox::Close);
+            QMessageBox::warning(this,tr("failure"),tr("password or username wrong"),QMessageBox::Close);
     }
-    ui->lineEdit1->clear();//清空用户名输入框
-    ui->lineEdit2->clear();//清空密码输入框
-    ui->lineEdit1->setFocus();//将光标转到用户名输入框
+    ui->usernameEdit->clear();//清空用户名输入框
+    ui->passwordEdit->clear();//清空密码输入框
+    ui->usernameEdit->setFocus();//将光标转到用户名输入框
 }
 
 void MainWindow::on_newButton_clicked()//用户点击注册按钮
@@ -87,7 +89,7 @@ void MainWindow::on_newButton_clicked()//用户点击注册按钮
         query1.exec();
         if(query1.next())//用户名已被注册，发出警告信息
         {
-            QMessageBox::warning(this,tr("注册失败！"),tr("该用户名已被注册"),QMessageBox::Close);
+            QMessageBox::warning(this,tr("failure"),tr("username exists"),QMessageBox::Close);
         }
         else
         {
@@ -101,7 +103,7 @@ void MainWindow::on_newButton_clicked()//用户点击注册按钮
     }
     else
     {
-        QMessageBox::warning(this,tr("注册失败"),tr("无法注册管理员账号"),QMessageBox::Close);
+        QMessageBox::warning(this,tr("failure "),tr("can't register an admin account. "),QMessageBox::Close);
     }
 }
 

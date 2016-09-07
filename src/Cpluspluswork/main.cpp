@@ -5,6 +5,7 @@
 #include<QSql>
 #include<QSqlDatabase>
 #include<QMessageBox>
+#include<QSqlError>
 bool createConnection(const QString& path)
 {
     QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE");
