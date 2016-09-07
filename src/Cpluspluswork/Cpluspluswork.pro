@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     Forms/profileform.cpp \
     Forms/form.cpp \
     Forms/trainform.cpp \
-    Forms/trainstationform.cpp
+    Forms/trainstationform.cpp \
+    basicdata.cpp
 
 HEADERS  += login.h \
     Handle.h \
@@ -31,10 +32,10 @@ HEADERS  += login.h \
     Forms/profileform.h \
     Forms/form.h \
     Forms/trainform.h \
-    Forms/trainstationform.h
+    Forms/trainstationform.h \
+    basicdata.h
 
 FORMS    +=mainwindow.ui \
     Forms/form.ui
 
-RESOURCES += \
-    work.qrc
+RESOURCES +=work.qrc

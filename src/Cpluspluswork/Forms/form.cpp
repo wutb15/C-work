@@ -21,3 +21,4 @@ void Form::on_deleteButton_clicked()
 {
     this->delteItem();
 }
+
