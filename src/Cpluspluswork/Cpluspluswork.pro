@@ -18,7 +18,9 @@ SOURCES += main.cpp\
     User.cpp \
     Manager.cpp \
     Forms/profileform.cpp \
-    Forms/form.cpp
+    Forms/form.cpp \
+    Forms/trainform.cpp \
+    Forms/trainstationform.cpp
 
 HEADERS  += login.h \
     Handle.h \
@@ -27,7 +29,9 @@ HEADERS  += login.h \
     mainwindow.h \
     BasicDataField.h \
     Forms/profileform.h \
-    Forms/form.h
+    Forms/form.h \
+    Forms/trainform.h \
+    Forms/trainstationform.h
 
 FORMS    +=mainwindow.ui \
     Forms/form.ui

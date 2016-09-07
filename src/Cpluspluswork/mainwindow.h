@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include"Handle.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,6 +22,8 @@ private slots:
     void on_newButton_clicked();
 private:
     Ui::MainWindow *ui;
+    Handle* handler;
+    HandleType type;
 };
 
 #endif // MAINWINDOW_H

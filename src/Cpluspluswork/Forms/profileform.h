@@ -11,13 +11,22 @@ class ProfileForm : public Form
 {
     Q_OBJECT
 public:
-    explicit ProfileForm(int id,QWidget* parent=0);
+    explicit ProfileForm(const QString& username,int id,QWidget* parent=0);
 private:
     void addItem();
-    void delteItem();
+    void deleteItem();
+
+
     void createContents();
     void createMap();
+    void createTable();
 
+
+    const QString& _username;
+
+
+    QLabel* usernameLabel;
+    QLineEdit* usernameEdit;
 
     QLabel* nameLabel;
     QLineEdit* nameEdit;

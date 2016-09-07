@@ -1,4 +1,4 @@
-#include "trainmanager.h"
+#include "mainwindow.h"
 #include <QApplication>
 #include"Forms/form.h"
 #include<QString>
@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     {
         return 1;
     }
-    TrainManager w;
+    MainWindow w;
 
     w.show();
 
