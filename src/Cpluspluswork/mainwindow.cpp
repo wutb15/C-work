@@ -5,6 +5,7 @@
 #include<QSqlTableModel>
 #include<QSqlRecord>
 #include<QMessageBox>
+#include<QtDebug>
 #include"User.h"
 #include"Manager.h"
 MainWindow::MainWindow(QWidget *parent) :
@@ -28,7 +29,8 @@ void MainWindow::on_logButton_clicked()//用户点击登录按钮
     {
         QSqlTableModel user;
         user.setTable("users");
-        user.setFilter("username = "+ui->usernameEdit->text());
+        QString filter= QString("username = '")+ui->usernameEdit->text()+QString("'");
+        user.setFilter(filter);
         user.select();
 
         if (user.rowCount()==1)//在数据库中查到了该用户名,开始检测密码是否正确
@@ -48,14 +50,16 @@ void MainWindow::on_logButton_clicked()//用户点击登录按钮
         }
         else//用户名不存在，发出警告
         {
-            QMessageBox::warning(this,tr("failure"),tr("password wrong or username doesn't exist "),QMessageBox::Close);
+            QMessageBox::warning(this,tr("failure"),tr("username doesn't exist "),QMessageBox::Close);
         }
     }
     else//身份为管理员
     {
         QSqlTableModel manager;
         manager.setTable("managers");
-        manager.setFilter("username = "+ui->usernameEdit->text());
+        QString filter= QString("username = '")+ui->usernameEdit->text()+QString("'");
+        user.setFilter(filter);
+        manager.setFilter(filter);
         manager.select();
 
         if(manager.rowCount()==1)
@@ -93,7 +97,8 @@ void MainWindow::on_newButton_clicked()//用户点击注册按钮
         }
         else
         {
-            query.prepare("insert into users values(?,?)");
+            query.prepare("INSERT INTO users (username,password)"
+                          "VALUES(?,?)");
             query.addBindValue(ui->usernameEdit->text());
             query.addBindValue(ui->passwordEdit->text());
             query.exec();
