@@ -1,5 +1,5 @@
-#ifndef BASICDATA_H
-#define BASICDATA_H
+#ifndef BASICDATAFIELD_H
+#define BASICDATAFIELD_H
 #include<QSql>
 #include<QSqlRecord>
 #include<QTime>

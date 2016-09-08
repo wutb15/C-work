@@ -1,4 +1,5 @@
 #include "basicdata.h"
+#include"../BasicDataField.h"
 
 BasicData::BasicData()
 {
@@ -10,6 +11,12 @@ QSqlRecord BasicData::toSqlRecord()
     return *_record;
 
 }
+
+
+
+
+
+
 
 Train::Train(QSqlRecord &src)
 {
@@ -28,6 +35,44 @@ void Train::load(QSqlRecord &src)
     _record=new QSqlRecord(src);
 
 }
+
+QList<TrainStation> Train::getstations()
+{
+    QSqlTableModel search;
+    search.setTable("trainstations");
+    QString filter="trainnumber ='"+trainnumber+"'";
+    search.setFilter(filter);
+    search.select();
+    QList<TrainStation> result;
+    for(int i=0;i<search.rowcount();i++)
+    {
+        TrainStation temp(search.record(i));
+        result.append(temp);
+    }
+
+    return result;
+
+}
+
+TrainStation Train::getstation(int number)
+{
+    QSqlTableModel search;
+    search.setTable("trainstations");
+    QString filter="trainnumber ='"+trainnumber+"'";
+    search.setFilter(filter);
+    search.setSort(static_cast<int>(TrainStationField::TrainStation_Miles),Qt::AscendingOrder);
+    search.select();
+    return TrainStation(search.record(number));
+
+
+}
+
+
+
+
+
+
+
 
 
 
@@ -50,6 +95,12 @@ void Station::load(QSqlRecord &src)
 
 
 
+
+
+
+
+
+
 TrainStation::TrainStation(QSqlRecord &src)
 {
     _record=new QSqlRecord(src);
@@ -58,7 +109,6 @@ TrainStation::TrainStation(QSqlRecord &src)
     this->starttime=src.value("starttime").toTime();
     this->station_id=src.value("station_id").toInt();
     this->miles=src.value("miles").toInt();
-    this->number=src.value("number").toInt();
     this->trainumber=src.value("trainnumber").toString();
     this->bookednumber=src.value("bookednumber").toInt();
 }
@@ -72,9 +122,16 @@ void TrainStation::load(QSqlRecord &src)
     this->starttime=src.value("starttime").toTime();
     this->station_id=src.value("station_id").toInt();
     this->miles=src.value("miles").toInt();
-    this->trainumber=src.value("trainnumber").toString();
+    this->trainnumber=src.value("trainnumber").toString();
     this->bookednumber=src.value("bookednumber").toInt();
 }
+
+
+
+
+
+
+
 
 Profile::Profile(QSqlRecord &src)
 {
@@ -98,6 +155,12 @@ void Profile::load(QSqlRecord &src)
     this->username=src.value("username").toString();
     record=new QSqlRecord(src);
 }
+
+
+
+
+
+
 
 Ticket::Ticket(QSqlRecord &src)
 {
