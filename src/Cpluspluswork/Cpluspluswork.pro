@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     Forms/form.cpp \
     Forms/trainform.cpp \
     Forms/trainstationform.cpp \
-    BasicData/basicdata.cpp
+    BasicData/basicdata.cpp\
+	book.cpp
 
 HEADERS  += Handle.h \
     User.h \
@@ -32,9 +33,13 @@ HEADERS  += Handle.h \
     Forms/form.h \
     Forms/trainform.h \
     Forms/trainstationform.h \
-    BasicData/basicdata.h
+    BasicData/basicdata.h\
+	book.h
 
 FORMS    +=mainwindow.ui \
-    Forms/form.ui
+    Forms/form.ui\
+	book.ui \
+    user.ui \
+    manager.ui
 
 RESOURCES +=work.qrc
