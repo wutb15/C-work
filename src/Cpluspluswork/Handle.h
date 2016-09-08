@@ -20,12 +20,14 @@ protected:
 public:
     QString getusername();
     QString getpassword();
-    void    setusername(QString src);
     void    setpassword(QString src);
     virtual ~Handle();
     Handle();
-    //virtual QSqlRecord& toSqlRecord()=0;
+    virtual QSqlRecord toSqlRecord()=0;
     virtual void  load(QSqlRecord& src)=0;
+
+private:
+    virtual void submit()=0;
 
 };
 

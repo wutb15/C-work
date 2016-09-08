@@ -6,9 +6,10 @@ class Manager:public Handle
 {
 public:
       Manager(QSqlRecord&src);
-      ~Manager(){}//TODO
-      //QSqlRecord& toSqlRecord(){}
-      void  load(QSqlRecord& src){}//TODO
+      ~Manager(){delete record;}
+      QSqlRecord toSqlRecord();
+      void  load(QSqlRecord& src);
+
 
 };
 

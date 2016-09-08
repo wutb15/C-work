@@ -9,8 +9,11 @@ protected:
     QString extrainformation;
 public:
     User(QSqlRecord &src);
-  //  QSqlRecord& toSqlRecord(){}
-    void load(QSqlRecord &src){}//TODO
+    ~User(){delete record;}
+    QSqlRecord toSqlRecord();
+    void load(QSqlRecord &src);
+    void charge(double money);
+    bool pay(double money);
 
 };
 

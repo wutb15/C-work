@@ -21,7 +21,7 @@ SOURCES += main.cpp\
     Forms/form.cpp \
     Forms/trainform.cpp \
     Forms/trainstationform.cpp \
-    basicdata.cpp
+    BasicData/basicdata.cpp
 
 HEADERS  += Handle.h \
     User.h \
@@ -32,7 +32,7 @@ HEADERS  += Handle.h \
     Forms/form.h \
     Forms/trainform.h \
     Forms/trainstationform.h \
-    basicdata.h
+    BasicData/basicdata.h
 
 FORMS    +=mainwindow.ui \
     Forms/form.ui

@@ -16,15 +16,14 @@ QString Handle::getusername()
 
 }
 
-void Handle::setusername(QString src)
-{
-    this->username=username;
-}
-
 void Handle::setpassword(QString src)
 {
     this->password=src;
+    record->setValue("password",password);
+    submit();
+
 }
+
 
 
 Handle::~Handle()

@@ -25,8 +25,9 @@ enum class TicketField
     Ticket_Id,
     Ticket_Profile_Id,
     Ticket_Seatnumber,
-    Ticket_BeginStation_Id,
-    Ticket_EndStation_Id
+    Ticket_Trainnumber,
+    Ticket_Beginnumber,
+    Ticket_Endnumber
 };
 enum class TrainField
 {
@@ -43,7 +44,6 @@ enum class TrainStationField
     TrainStation_ArriveTime,
     TrainStation_Station_Id,
     TrainStation_Miles,
-    TrainStation_Number,
     TrainStation_BookedNumber//被预定的票数
 };
 
