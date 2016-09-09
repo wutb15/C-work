@@ -44,6 +44,8 @@ void MainWindow::on_logButton_clicked()//用户点击登录按钮
             {
                 handler=new User(user.record(0));
                // accept();
+                UserView userview1;
+                userview1.show();
                 this->close();
 
             }
@@ -69,6 +71,8 @@ void MainWindow::on_logButton_clicked()//用户点击登录按钮
 
                 handler=new Manager(manager.record(0));
                 //accept();
+                ManagerView managerview1;
+                managerview1.show();
                 this->close();
 
             }
@@ -102,6 +106,8 @@ void MainWindow::on_newButton_clicked()//用户点击注册按钮
             query.addBindValue(ui->usernameEdit->text());
             query.addBindValue(ui->passwordEdit->text());
             query.exec();
+            UserView userview1;
+            userview1.show();
         }
             ui->passwordEdit->clear();
             ui->usernameEdit->clear();

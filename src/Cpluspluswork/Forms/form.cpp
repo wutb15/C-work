@@ -1,5 +1,6 @@
 #include "form.h"
-
+#include "QWidget"
+#include "QTableWidget"
 Form::Form(QWidget *parent) :
     QDialog(parent)
 {
@@ -10,6 +11,11 @@ Form::Form(QWidget *parent) :
     connect(ui.lastButton,SIGNAL(clicked(bool)),this->mapper,SLOT(toLast()));
     connect(ui.nextButton,SIGNAL(clicked(bool)),this->mapper,SLOT(toNext()));
     connect(ui.previousButton,SIGNAL(clicked(bool)),this->mapper,SLOT(toPrevious()));
+
+
+    QVBoxLayout *layout=new QVBoxLayout;
+    layout->addWidget(table1);
+
 }
 
 void Form::on_addButton_clicked()
