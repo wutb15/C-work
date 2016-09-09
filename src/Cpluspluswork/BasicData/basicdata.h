@@ -36,10 +36,12 @@ public:
     QString gettrainnumber()const{return trainnumber;}
     SeatType getseattype()const{return seattype;}
     SpeedType getspeedtype()const{return speedtype;}
+    ~Train();
  private:
     QString trainnumber;
     SeatType seattype;
     SpeedType speedtype;
+    QList<TrainStation*> trainstations;
 
 };
 
@@ -51,7 +53,7 @@ public:
     void load(QSqlRecord& src);
     int getid()const{return id;}
     QString getname()const{return name;}
-    QString province()const{return province;}
+    QString getprovince()const{return province;}
 private:
     int id;
     QString name;
@@ -67,6 +69,7 @@ public:
     int getid()const{return id;}
     int getseatnumber() const{return seatnumber;}
     int gettrainnumber() const{return trainnumber;}
+    Profile getProfile();
 
  private:
     int id;

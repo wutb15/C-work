@@ -1,6 +1,6 @@
 #include "basicdata.h"
 #include"../BasicDataField.h"
-
+#include<QListIterator>
 BasicData::BasicData()
 {
 
@@ -36,35 +36,47 @@ void Train::load(QSqlRecord &src)
 
 }
 
-QList<TrainStation> Train::getstations()
+QList<TrainStation*> Train::getstations()
 {
+
+    for(auto i:this->trainstations)
+    {
+        delete i;
+
+    }
+    this->trainstations.clear();
     QSqlTableModel search;
     search.setTable("trainstations");
     QString filter="trainnumber ='"+trainnumber+"'";
     search.setFilter(filter);
+    search.setSort(TrainStationField::TrainStation_Miles,Qt::AscendingOrder);
     search.select();
-    QList<TrainStation> result;
     for(int i=0;i<search.rowcount();i++)
     {
-        TrainStation temp(search.record(i));
-        result.append(temp);
+        TrainStation* temp=new TrainStation(search.record(i));
+        this->trainnumber.append(temp);
     }
 
-    return result;
+
+    return this->trainstations;
 
 }
 
 TrainStation Train::getstation(int number)
 {
-    QSqlTableModel search;
-    search.setTable("trainstations");
-    QString filter="trainnumber ='"+trainnumber+"'";
-    search.setFilter(filter);
-    search.setSort(static_cast<int>(TrainStationField::TrainStation_Miles),Qt::AscendingOrder);
-    search.select();
-    return TrainStation(search.record(number));
+    return this->getstations().at(number);
 
 
+}
+
+Train::~Train()
+{
+    delete _record;
+    for(auto i:this->trainstations)
+    {
+        delete i;
+
+    }
 }
 
 
@@ -183,6 +195,18 @@ void Ticket::load(QSqlRecord &src)
     this->endnumber=src.value("endnumber").toInt();
     this->profile_id=src.value("profile_id").toInt();
     _record=new QSqlRecord(src);
+}
+
+Profile Ticket::getProfile()
+{
+    QSqlTableModel model;
+    model.setTable("profiles");
+    QString filter="id = '"+QString(this->profile_id)+"'";
+    model.setFilter(filter);
+    if(model.rowCount()==1)
+    {
+        return Profile(model.record(0));
+    }
 }
 
 

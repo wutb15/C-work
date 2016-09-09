@@ -24,6 +24,37 @@ void User::load(QSqlRecord& src)
 
 }
 
+QList<Profile*> User::getprofiles()
+{
+    for(auto i:this->profiles)
+    {
+        delete i;
+    }
+    this->profiles.clear();
+
+    QSqlTableModel model;
+    model.setTable("profiles");
+    QString filter="username = '"+this->username+"'";
+    model.setFilter(filter);
+    model.setSort(ProfileField::Profile_Id,Qt::AscendingOrder);
+    model.select();
+
+    for(int i=0;i<model.rowCount();i++)
+    {
+        Profile*temp=new Profile(model.record(i));
+        this->profiles.append(temp);
+    }
+
+    return this->profiles;
+
+}
+
+Profile* User::getprofile(int number)
+{
+    return this->getprofiles().at(number);
+}
+
+
 bool User::pay(double money)
 {
     if(this->money>money)
@@ -64,4 +95,15 @@ void User::submit()
         model.setRecord(0,*record);
         model.submitAll();
     }
+}
+
+
+User::~User()
+{
+    delete _record;
+    for(auto i:this->profiles)
+    {
+        delete i;
+    }
+
 }

@@ -3,6 +3,7 @@
 #include <QDialog>
 #include"Handle.h"
 #include"User.h"
+#include"BasicData/basicdata.h"
 namespace Ui {
     class book;
 }
@@ -18,6 +19,8 @@ public:
 private:
     Ui::book *ui;
     User* passenger;
+    Profile* profile;
+
 
 
 private slots:
