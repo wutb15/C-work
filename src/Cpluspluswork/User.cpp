@@ -1,4 +1,4 @@
-#include "User.h"
+#include"User.h"
 
 User::User(QSqlRecord &src)
 {
@@ -36,7 +36,7 @@ QList<Profile*> User::getprofiles()
     model.setTable("profiles");
     QString filter="username = '"+this->username+"'";
     model.setFilter(filter);
-    model.setSort(ProfileField::Profile_Id,Qt::AscendingOrder);
+    model.setSort(static_cast<int>(ProfileField::Profile_Id),Qt::AscendingOrder);
     model.select();
 
     for(int i=0;i<model.rowCount();i++)
@@ -70,7 +70,7 @@ bool User::pay(double money)
     }
 }
 
-void User::money(double money)
+void User::charge(double money)
 {
     this->money+=money;
     record->setValue("money",this->money);
@@ -100,7 +100,7 @@ void User::submit()
 
 User::~User()
 {
-    delete _record;
+    delete record;
     for(auto i:this->profiles)
     {
         delete i;

@@ -27,7 +27,8 @@ enum class TicketField
     Ticket_Seatnumber,
     Ticket_Trainnumber,
     Ticket_Beginnumber,
-    Ticket_Endnumber
+    Ticket_Endnumber,
+    Ticket_Username
 };
 enum class TrainField
 {

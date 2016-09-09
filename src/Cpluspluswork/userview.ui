@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>UserView</class>
+ <widget class="QDialog" name="UserView">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -71,7 +71,7 @@
   <connection>
    <sender>exitButton</sender>
    <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>UserView</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">

@@ -22,7 +22,7 @@ private:
     Profile* profile;
 
 
-    void createTicket(QString trainnumer,int beginnumber,int endnumber);
+    void createTicket(QString trainnumer,int,seatnumber,int beginnumber,int endnumber,int profile_id,QString username);
 
 
 

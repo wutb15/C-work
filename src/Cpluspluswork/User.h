@@ -2,7 +2,6 @@
 #define USER_H
 #include"Handle.h"
 #include"BasicData/basicdata.h"
-
 class User : public Handle
 {
 protected:
@@ -18,8 +17,10 @@ public:
     bool pay(double money);
     QList<Profile*> getprofiles();
     Profile*        getprofile(int number=0);
-    double getmoney()const{return money;}
 
+    double getmoney() const{ return money;}
+private:
+    void submit();
 };
 
 

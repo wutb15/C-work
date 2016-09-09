@@ -26,7 +26,7 @@ protected:
     QSqlRecord* _record;
 };
 
-
+class TrainStation;
 class Train:public BasicData
 {
 public:
@@ -62,16 +62,18 @@ private:
     QString province;
 
 };
-
+class Profile;
 class Ticket:public BasicData
 {
 public:
     Ticket(QSqlRecord& src);
     void load(QSqlRecord& src);
+    Profile getProfile();
     int getid()const{return id;}
     int getseatnumber() const{return seatnumber;}
-    int gettrainnumber() const{return trainnumber;}
-    Profile getProfile();
+    QString gettrainnumber() const{return trainnumber;}
+    QString getusername()const{return username;}
+
 
  private:
     int id;
@@ -80,6 +82,7 @@ public:
     QString trainnumber;
     int beginnumber;
     int endnumber;
+    QString username;
 
 };
 
@@ -123,6 +126,6 @@ public:
     QString phone;
     QString username;
 
-}
+};
 
 #endif // BASICDATA_H

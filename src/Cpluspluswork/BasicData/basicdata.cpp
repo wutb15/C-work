@@ -198,6 +198,7 @@ Ticket::Ticket(QSqlRecord &src)
     this->beginnumber=src.value("beginnumber").toInt();
     this->endnumber=src.value("endnumber").toInt();
     this->profile_id=src.value("profile_id").toInt();
+    this->username=src.value("username").toString();
     _record=new QSqlRecord(src);
 }
 

@@ -1,5 +1,5 @@
 #include "Handle.h"
-
+#include<QVariant>
 Handle::Handle()
 {
 
@@ -19,7 +19,8 @@ QString Handle::getusername()
 void Handle::setpassword(QString src)
 {
     this->password=src;
-    record->setValue("password",password);
+    record->setValue(1,password);
+
     submit();
 
 }

@@ -4,7 +4,7 @@
 #include"User.h"
 
 namespace Ui {
-    class AccountView;
+    class AccounView;
 }
 
 class AccountView : public QDialog
@@ -16,7 +16,7 @@ public:
     ~AccountView();
 
 private:
-    Ui::AccountView *ui;
+    Ui::AccounView *ui;
     User* user;
 
 

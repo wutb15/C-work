@@ -13,9 +13,6 @@ Form::Form(QWidget *parent) :
     connect(ui.previousButton,SIGNAL(clicked(bool)),this->mapper,SLOT(toPrevious()));
 
 
-    QVBoxLayout *layout=new QVBoxLayout;
-    layout->addWidget(table1);
-
 }
 
 void Form::on_addButton_clicked()

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>SeatView</class>
+ <widget class="QDialog" name="SeatView">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>873</width>
+    <height>674</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QPushButton" name="bookButton">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>230</y>
+     <x>790</x>
+     <y>610</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -25,6 +25,21 @@
    <property name="text">
     <string>订票</string>
    </property>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>0</y>
+     <width>751</width>
+     <height>631</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QTableWidget" name="seats"/>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>

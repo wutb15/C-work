@@ -8,6 +8,9 @@
 #include<QtDebug>
 #include"userview.h"
 #include"Manager.h"
+#include"User.h"
+#include"Handle.h"
+#include"Manager.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -60,7 +63,7 @@ void MainWindow::on_logButton_clicked()//用户点击登录按钮
         QSqlTableModel manager;
         manager.setTable("managers");
         QString filter= QString("username = '")+ui->usernameEdit->text()+QString("'");
-        user.setFilter(filter);
+        manager.setFilter(filter);
         manager.setFilter(filter);
         manager.select();
 

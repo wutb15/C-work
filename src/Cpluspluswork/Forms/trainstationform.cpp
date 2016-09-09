@@ -111,7 +111,7 @@ void TrainStationForm::createTable()
     tableModel->setRelation(static_cast<int>(TrainStationField::TrainStation_Station_Id),
                             QSqlRelation("stations","id","name"));
 
-    tableModel->setSort(static_cast<int>(TrainStationField::TrainStation_Number),Qt::AscendingOrder);
+    tableModel->setSort(static_cast<int>(TrainStationField::TrainStation_TrainNumber),Qt::AscendingOrder);
     tableModel->select();
 
 
