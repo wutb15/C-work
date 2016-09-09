@@ -13,6 +13,7 @@ enum class BasicDataType
     TrainStation,
     Ticket
 };
+//这里的类只用做显示不能更改，更改只能通过qsqltable;
 class BasicData
 {
 public:
