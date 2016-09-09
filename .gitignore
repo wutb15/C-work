@@ -45,8 +45,10 @@ Win32/
 *.dir/
 *.sln
 *.pro.user
+*.pro.user.*
 *.vs/
 *.aps
+
 
 
 #QtCreator
