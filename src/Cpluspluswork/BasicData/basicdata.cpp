@@ -62,12 +62,28 @@ QList<TrainStation*> Train::getstations()
 
 }
 
-TrainStation Train::getstation(int number)
+TrainStation* Train::getstation(int number)
 {
     return this->getstations().at(number);
 
 
 }
+
+int Train::getindex(int station_id)
+{
+    QList<TrainStation*> temp=this->getstations();
+    for(int i=0;i<temp.size();i++)
+    {
+        if(temp.at(i)->getstation_id()==station_id)
+        {
+            return i;
+            break;
+        }
+
+    }
+    return -1;
+}
+
 
 Train::~Train()
 {
@@ -121,7 +137,7 @@ TrainStation::TrainStation(QSqlRecord &src)
     this->starttime=src.value("starttime").toTime();
     this->station_id=src.value("station_id").toInt();
     this->miles=src.value("miles").toInt();
-    this->trainumber=src.value("trainnumber").toString();
+    this->trainnumber=src.value("trainnumber").toString();
     this->bookednumber=src.value("bookednumber").toInt();
 }
 

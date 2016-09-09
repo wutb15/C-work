@@ -33,6 +33,7 @@ public:
     void load(QSqlRecord& src);
     QList<TrainStation*> getstations();
     TrainStation* getstation(int number);
+    int getindex(int station_id);
     QString gettrainnumber()const{return trainnumber;}
     SeatType getseattype()const{return seattype;}
     SpeedType getspeedtype()const{return speedtype;}
@@ -91,6 +92,7 @@ public:
     QTime	getarrivetime()const{return arrivetime;}
     int 	getmiles()const{return miles;}
     int 	getbookednumber()const{return bookednumber;}
+    int		getstation_id()const{return station_id;}
 private:
     int id;
     QString trainnumber;

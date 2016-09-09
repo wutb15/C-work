@@ -18,6 +18,7 @@ public:
     bool pay(double money);
     QList<Profile*> getprofiles();
     Profile*        getprofile(int number=0);
+    double getmoney()const{return money;}
 
 };
 
