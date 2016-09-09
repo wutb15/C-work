@@ -6,7 +6,7 @@
 #include<QSqlRecord>
 #include<QMessageBox>
 #include<QtDebug>
-#include"User.h"
+#include"userview.h"
 #include"Manager.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),

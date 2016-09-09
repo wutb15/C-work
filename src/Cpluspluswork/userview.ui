@@ -52,7 +52,7 @@
     <string>退出</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="bookButton">
+  <widget class="QPushButton" name="pwdButton">
    <property name="geometry">
     <rect>
      <x>210</x>
