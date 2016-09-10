@@ -97,11 +97,13 @@ public:
     int 	getmiles()const{return miles;}
     int 	getbookednumber()const{return bookednumber;}
     int		getstation_id()const{return station_id;}
+    Station* getstation();
 private:
     int id;
     QString trainnumber;
     QTime starttime;
     QTime arrivetime;
+    Station* _station;
     int station_id;
     int miles;
     int bookednumber;
@@ -114,6 +116,7 @@ public:
     Profile(QSqlRecord& src);
     void load(QSqlRecord& src);
     QString getsex()const{return sex;}
+    int 	getid()const{return id;}
     QString getname()const{return name;}
     QString getcardid()const{return cardid;}
     QString getphone()const{return phone;}

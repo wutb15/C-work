@@ -22,5 +22,5 @@ SearchView::~SearchView()
 SearchView::on_bookButton_clicked()
 {
     SeatView seatview1;
-    seatview1.show();
+    seatview1.exec();
 }

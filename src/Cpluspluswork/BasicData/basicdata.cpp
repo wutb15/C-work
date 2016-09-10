@@ -154,6 +154,20 @@ void TrainStation::load(QSqlRecord &src)
     this->bookednumber=src.value("bookednumber").toInt();
 }
 
+Station* TrainStation::getstation()
+{
+    delete _station;
+    QSqlTableModel model;
+    model.setTable("stations");
+    model.setFilter(tr("id = '%1'").arg(station_id));
+    model.select();
+    if(model.rowCount()==1)
+    {
+        _station=new Station(model.record(0));
+    }
+    return _station;
+}
+
 
 
 

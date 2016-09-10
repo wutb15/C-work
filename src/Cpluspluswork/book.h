@@ -13,16 +13,23 @@ class book : public QDialog
     Q_OBJECT
 
 public:
-    explicit book(const User* user,QWidget *parent = 0);
+    explicit book(const User* user,const Train* train,const Profile* profile,
+                  int seatnumber,int beginnumber,int endnumber,QWidget *parent = 0);
     ~book();
 
 private:
     Ui::book *ui;
     User* passenger;
     Profile* profile;
+    Train* train;
+    int seatnumber;
+    int beginnumber;
+    int endnumber;
 
 
-    void createTicket(QString trainnumer,int,seatnumber,int beginnumber,int endnumber,int profile_id,QString username);
+    void createTicket(QString trainnumer,int seatnumber,int beginnumber,int endnumber,int profile_id,QString username);
+
+    void addNumber();
 
 
 

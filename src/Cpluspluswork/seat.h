@@ -34,6 +34,7 @@ private:
 
 private slots:
     void on_bookButton_clicked();
+    void on_seats_clicked(const QModelIndex &index);
 };
 
 #endif // SEAT_H
