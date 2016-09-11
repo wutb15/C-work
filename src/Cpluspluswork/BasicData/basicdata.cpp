@@ -125,7 +125,7 @@ void Station::load(QSqlRecord &src)
 
 
 
-TrainStation::TrainStation(QSqlRecord &src)
+TrainStation::TrainStation(QSqlRecord src)
 {
     _record=new QSqlRecord(src);
     this->id=src.value("id").toInt();
@@ -171,7 +171,7 @@ Station* TrainStation::getstation()
 
 
 
-Profile::Profile(QSqlRecord &src)
+Profile::Profile(QSqlRecord src)
 {
     this->id=src.value("id").toInt();
     this->name=src.value("name").toString();

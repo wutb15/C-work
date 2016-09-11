@@ -6,7 +6,7 @@
 class Manager:public Handle
 {
 public:
-      Manager(QSqlRecord& src);
+      Manager(QSqlRecord src);
       ~Manager(){delete record;}
       QSqlRecord toSqlRecord();
       void  load(QSqlRecord& src);

@@ -12,39 +12,35 @@
 #include <QPushButton>
 #include <QDialogButtonBox>
 #include <Forms/trainstationform.h>
-ManagerView::ManagerView(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::ManagerView)
-{
-    ui->setupUi(this);
-}
+#include<QAbstractItemView>
+#include<QSqlRelationalDelegate>
 
 ManagerView::~ManagerView()
 {
     delete ui;
 }
 ManagerView::ManagerView(QWidget *parent) :
-    QDialog(parent),
+
     ui(new Ui::ManagerView)
 {
-    ui->setupUi(this);
+
     createTrainPanel();
     createStationPanel();
     buttonBox->addButton(tr("addTrain"),QDialogButtonBox::ActionRole);
     buttonBox->addButton(tr("deleteTrain"),QDialogButtonBox::ActionRole);
     buttonBox->addButton(tr("editStation"),QDialogButtonBox::ActionRole);
-    QSplitter *layout(Qt::Vertical);//总体设置为竖直方向布局
-    layout->addWidget(trainPanel);
-    layout->addWidget(stationPanel);
-    layout->addWidget(buttonBox);//包含三个按钮：addTrain,deleteTrain,editTrain
-    connect(addButton,SIGNAL(clicked()),this,SLOT(addTrain());
-    connect(deleteButton,SIGNAL(clicked()),this,SLOT(deleteTrain());
-    connect(editButton,SIGNAL(clicked()),this,SLOT(editStation());
+    QSplitter layout(Qt::Vertical);
+    layout.addWidget(trainPanel);
+    layout.addWidget(stationPanel);
+    layout.addWidget(buttonBox);//包含三个按钮：addTrain,deleteTrain,editTrain
+    connect(addtrain,SIGNAL(clicked()),this,SLOT(addTrain()));
+    connect(deletetrain,SIGNAL(clicked()),this,SLOT(deleteTrain()));
+    connect(editstation,SIGNAL(clicked()),this,SLOT(editStation()));
     trainView->setCurrentIndex(trainModel->index(0,0));
 }
 enum
 {
-    Trains_rowid=0,
+
     Trains_trainnumber=1,
     Trains_seattype=2,
     Trains_speedtype=3
@@ -68,7 +64,7 @@ void ManagerView::createTrainPanel()
     trainView->setSelectionMode(QAbstractItemView::SingleSelection);
     trainView->setSelectionBehavior(QAbstractItemView::SelectRows);
     trainView->resizeColumnsToContents();
-    trainView->setColumnHidden(Trains_rowid,true);
+
     trainView->horizontalHeader()->setStretchLastSection(true);
 
     trainLabel=new QLabel(tr("Train"));
@@ -78,7 +74,7 @@ void ManagerView::createTrainPanel()
 
 enum
 {
-    Stations_rowid=0,
+
     Stations_id=1,
     Stations_trainnumber=2,
     Stations_starttime=3,
@@ -108,7 +104,7 @@ void ManagerView::createStationPanel()
     stationView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     stationView->resizeColumnsToContents();
     stationView->horizontalHeader()->setStretchLastSection(true);
-    stationView->setColumnHidden(Stations_rowid, true);
+
     stationView->setColumnHidden(Stations_stationid, true);
     stationView->setColumnHidden(Stations_miles, true);
     stationView->setColumnHidden(Stations_bookednumber, true);
@@ -150,10 +146,10 @@ void ManagerView::deleteTrain()
         return;
     QSqlDatabase::database().transaction();
     QSqlRecord record=trainModel->record(index.row());
-    int id=record.value(Trains_rowid).toInt();
+    int id=record.value(Trains_trainnumber).toInt();
     int numStations=0;
 
-    QSqlQuery query(QString("SELECT COUNT(*)FROM stations""WHERE rowid=%1").arg(id));
+    QSqlQuery query(QString("SELECT COUNT(*)FROM stations""WHERE trainnumber=%1").arg(id));
     if(query.next())
         numStations=query.value(0).toInt();
     if(numStations>0)
@@ -164,7 +160,7 @@ void ManagerView::deleteTrain()
             QSqlDatabase::database().rollback();
             return;
         }
-        query.exec(QString("DELETE FROM stations""WHERE rowid=%1").arg(id));
+        query.exec(QString("DELETE FROM stations""WHERE trainnumber=%1").arg(id));
     }
     trainModel->removeRow(index.row());
     trainModel->submitAll();
@@ -177,7 +173,7 @@ void ManagerView::editStation()
 {
     int stationId=-1;
     QModelIndex index=stationView->currentIndex();
-    if(index.isvalid())
+    if(index.isValid())
     {
         QSqlRecord record=stationModel->record(index.row());
         stationId=record.value(Stations_id).toInt();

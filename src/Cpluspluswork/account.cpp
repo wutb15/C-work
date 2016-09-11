@@ -6,8 +6,9 @@
 #include <QSqlQuery>
 #include<QSqlTableModel>
 #include "userview.h"
+#include <QMessageBox>
 
-AccountView::AccountView(const User* user0,QWidget *parent) :
+AccountView::AccountView(User* user0,QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AccountView)
 {
@@ -22,10 +23,10 @@ AccountView::~AccountView()
 {
     delete ui;
 }
-AccountView::on_pwdButton_clicked()
+void AccountView::on_pwdButton_clicked()
 {
 
-    if(user.getpassword()==ui->oldpwd->text())
+    if(user->getpassword()==ui->oldpwd->text())
         if(ui->newpwd->text()==ui->confirmpwd->text())
         {
             user->setpassword(ui->newpwd->text());
@@ -42,7 +43,7 @@ AccountView::on_pwdButton_clicked()
 
 }
 
-AccountView::on_backButton_clicked()
+void AccountView::on_backButton_clicked()
 {
     UserView userview1(user);
     userview1.show();

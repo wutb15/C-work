@@ -33,7 +33,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="comfirmpwd">
+  <widget class="QLineEdit" name="confirmpwd">
    <property name="geometry">
     <rect>
      <x>50</x>

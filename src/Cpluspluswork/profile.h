@@ -2,7 +2,7 @@
 #define PROFILE_H
 #include <QDialog>
 #include "User.h"
-
+#include<QTableView>
 namespace Ui {
     class ProfileView;
 }

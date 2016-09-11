@@ -20,9 +20,9 @@ ProfileView::ProfileView(User *user0,QWidget *parent) :
     ui->setupUi(this);
     user=user0;
     createProfilePanel();
-    QSplitter *layout(Qt::Vertical);
-    layout->addWidget(profilePanel);
-    layout->addWidget(changeButton);
+    QSplitter layout(Qt::Vertical);
+    layout.addWidget(profilePanel);
+    layout.addWidget(changeButton);
 }
 
 
@@ -32,7 +32,6 @@ ProfileView::~ProfileView()
 }
 enum
 {
-    Profiles_rowid=0,
     Profiles_id=1,
     Profiles_sex=2,
     Profiles_name=3,
@@ -51,25 +50,26 @@ void ProfileView::createProfilePanel()
     profileModel->setHeaderData(Profiles_sex,Qt::Horizontal,tr("sex"));
     profileModel->setHeaderData(Profiles_name,Qt::Horizontal,tr("name"));
     profileModel->setHeaderData(Profiles_phone,Qt::Horizontal,tr("phone"));
-    QModelIndex index=profileModel->currentIndex();
-    if(index.isValid())
-    {
-        QSqlRecord record =profileModel->record(index.row());
-        QString name=record.value("username");
-        profileModel->setFilter(QString("username= '%1'").arg(name));
-    }
+
     profileModel->select();
 
     profileView=new QTableView;
-    profileView->setModel(stationModel);
+    profileView->setModel(profileModel);
     profileView->setSelectionMode(QAbstractItemView::SingleSelection);
     profileView->setSelectionBehavior(QAbstractItemView::SelectRows);
     profileView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     profileView->resizeColumnsToContents();
     profileView->horizontalHeader()->setStretchLastSection(true);
-    profileView->setColumnHidden(Profiles_rowid, true);
+
     profileView->setColumnHidden(Profiles_cardid, true);
     profileView->setColumnHidden(Profiles_username, true);
+    QModelIndex index=profileView->currentIndex();
+    if(index.isValid())
+    {
+        QSqlRecord record =profileModel->record(index.row());
+        QString name=record.value("username").toString();
+        profileModel->setFilter(QString("username= '%1'").arg(name));
+    }
 
 }
 
@@ -77,15 +77,15 @@ void ProfileView::on_changeButton_clicked()
 {
     int profileId=-1;
     QModelIndex index=profileView->currentIndex();
-    if(index.isvalid())
+    if(index.isValid())
     {
         QSqlRecord record=profileModel->record(index.row());
         profileId=record.value(Profiles_id).toInt();
     }
-    ProfileForm form1(user->getusername(),this);
+    ProfileForm form1(user->getusername(),profileId,this);
     form1.exec();
 }
-ProfileView::on_backButton_clicked()
+void ProfileView::on_backButton_clicked()
 {
     UserView userview1(user);
     userview1.show();

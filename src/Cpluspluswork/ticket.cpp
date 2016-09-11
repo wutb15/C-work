@@ -19,9 +19,9 @@ TicketView::TicketView(User *user0,QWidget *parent) :
     ui->setupUi(this);
     user=user0;
     createTicketPanel();
-    QSplitter *layout(Qt::Vertical);
-    layout->addWidget(ticketPanel);
-    layout->addWidget(backButton);
+    QSplitter layout(Qt::Vertical);
+    layout.addWidget(ticketPanel);
+    layout.addWidget(backButton);
 }
 
 
@@ -31,7 +31,7 @@ TicketView::~TicketView()
 }
 enum
 {
-    Tickets_rowid=0,
+
     Tickets_id=1,
     Tickets_profileid=2,
     Tickets_seatnumber=3,
@@ -50,14 +50,7 @@ void TicketView::createTicketPanel()
     ticketModel->setHeaderData(Tickets_profileid,Qt::Horizontal,tr("sex"));
     ticketModel->setHeaderData(Tickets_seatnumber,Qt::Horizontal,tr("name"));
     ticketModel->setHeaderData(Tickets_trainnumber,Qt::Horizontal,tr("phone"));
-    QModelIndex index=ticketModel->currentIndex();
-    if(index.isValid())
-    {
-    QSqlRecord record =ticketModel->record(index.row());
-    QString name=record.value("username");
-    ticketModel->setFilter(QString("username=%1").arg(name));
-    }
-    ticketModel->select();
+
 
     ticketView=new QTableView;
     ticketView->setModel(ticketModel);
@@ -66,14 +59,22 @@ void TicketView::createTicketPanel()
     ticketView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ticketView->resizeColumnsToContents();
     ticketView->horizontalHeader()->setStretchLastSection(true);
-    ticketView->setColumnHidden(Tickets_rowid, true);
+
     ticketView->setColumnHidden(Tickets_beginnumber, true);
     ticketView->setColumnHidden(Tickets_endnumber, true);
+    QModelIndex index=ticketView->currentIndex();
+    if(index.isValid())
+    {
+    QSqlRecord record =ticketModel->record(index.row());
+    QString name=record.value("username").toString();
+    ticketModel->setFilter(QString("username=%1").arg(name));
+    }
+    ticketModel->select();
 
 }
 
 
-ProfileView::on_backButton_clicked()
+void TicketView::on_backButton_clicked()
 {
     UserView userview1(user);
     userview1.show();

@@ -20,6 +20,7 @@ private slots:
     void updateStationView();
     void editStation();
 private:
+    Ui::ManagerView *ui;
     void createTrainPanel();
     void createStationPanel();
     QSqlRelationalTableModel *trainModel;
@@ -31,5 +32,8 @@ private:
     QTableView *trainView;
     QTableView *stationView;
     QDialogButtonBox *buttonBox;
+    QPushButton *addtrain;
+    QPushButton *deletetrain;
+    QPushButton *editstation;
 };
 #endif // MANAGERVIEW_H
