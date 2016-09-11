@@ -1,6 +1,6 @@
 #include "Handle.h"
 #include<QVariant>
-Handle::Handle()
+Handle::Handle(QSqlRecord src)
 {
 
 }

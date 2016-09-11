@@ -30,6 +30,6 @@ private:
     QLabel *stationLabel;
     QTableView *trainView;
     QTableView *stationView;
-    QDialogButtonBox *buttonBox(Qt::Horizontal);
+    QDialogButtonBox *buttonBox;
 };
 #endif // MANAGERVIEW_H

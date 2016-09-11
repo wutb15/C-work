@@ -1,6 +1,6 @@
 #include"User.h"
 
-User::User(QSqlRecord &src)
+User::User(QSqlRecord src)
 {
     username=src.value("username").toString();
     password=src.value("password").toString();

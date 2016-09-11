@@ -9,7 +9,7 @@ protected:
     QString extrainformation;
     QList<Profile*> profiles;
 public:
-    User(QSqlRecord &src);
+    User(QSqlRecord src);
     ~User();
     QSqlRecord toSqlRecord();
     void load(QSqlRecord &src);

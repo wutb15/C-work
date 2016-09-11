@@ -3,7 +3,8 @@
 
 #include <QMainWindow>
 #include"Handle.h"
-
+#include"User.h"
+#include"Manager.h"
 namespace Ui {
 class MainWindow;
 }
@@ -24,6 +25,8 @@ private:
     Ui::MainWindow *ui;
     Handle* handler;
     HandleType type;
+    User* user0;
+    Manager* manager0;
 };
 
 #endif // MAINWINDOW_H

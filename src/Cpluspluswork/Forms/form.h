@@ -8,7 +8,8 @@
 #include<QString>
 #include"BasicDataField.h"
 
-class Ui::Form;
+namespace Ui
+{class Form;}
 
 class Form : public QDialog
 {
