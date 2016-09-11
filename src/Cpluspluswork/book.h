@@ -13,7 +13,7 @@ class book : public QDialog
     Q_OBJECT
 
 public:
-    explicit book(const User* user,const Train* train,const Profile* profile,
+    explicit book( User* user, Train* train, Profile* profile,
                   int seatnumber,int beginnumber,int endnumber,QWidget *parent = 0);
     ~book();
 

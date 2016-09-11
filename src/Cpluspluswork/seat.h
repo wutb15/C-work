@@ -14,7 +14,7 @@ class SeatView : public QDialog
     Q_OBJECT
 
 public:
-    explicit SeatView(const Train* train,int beginnumber,int endnumber,const User* user,const Profile* profile,QWidget *parent = 0);
+    explicit SeatView(Train* train,int beginnumber,int endnumber, User* user,Profile* profile,QWidget *parent = 0);
     ~SeatView();
 
 private:

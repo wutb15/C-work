@@ -54,9 +54,9 @@ void ProfileView::createProfilePanel()
     QModelIndex index=profileModel->currentIndex();
     if(index.isValid())
     {
-    QSqlRecord record =profileModel->record(index.row());
-    QString name=record.value("username");
-    profileModel->setFilter(QString("username=%1").arg(name));
+        QSqlRecord record =profileModel->record(index.row());
+        QString name=record.value("username");
+        profileModel->setFilter(QString("username= '%1'").arg(name));
     }
     profileModel->select();
 

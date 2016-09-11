@@ -1,9 +1,5 @@
 #include "Handle.h"
 #include<QVariant>
-Handle::Handle(QSqlRecord src)
-{
-
-}
 
 QString Handle::getpassword()
 {

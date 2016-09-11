@@ -19,14 +19,14 @@ double cal(int miles,SeatType seattype,SpeedType speedtype)
 
 }
 
-book::book(const User *user, const Train *train, const Profile *profile, int seatnumber, int beginnumber, int endnumber, QWidget *parent):
+book::book( User *user,  Train *train,  Profile *profile, int seatnumber, int beginnumber, int endnumber, QWidget *parent):
     QDialog(parent),ui(new Ui::book)
 {
     this->passenger=user;
     this->train=train;
     this->profile=profile;
     this->seatnumber=seatnumber;
-    this->beginnumber=beinnumber;
+    this->beginnumber=beginnumber;
     this->endnumber=endnumber;
     ui->setupUi(this);
 
@@ -38,8 +38,8 @@ book::book(const User *user, const Train *train, const Profile *profile, int sea
     ui->trainumberEdit->setText(this->train->gettrainnumber());
     ui->endtimeEdit->setTime(end->getarrivetime());
     ui->starttimeEdit->setTime(begin->getstarttime());
-    ui->costEdit->setText(cal(end->getmiles()-begin->getmiles(),
-                              this->train->getseattype(),this->train->getspeedtype()));
+    ui->costEdit->setText(QString::number(cal(end->getmiles()-begin->getmiles(),
+                              this->train->getseattype(),this->train->getspeedtype())));
     ui->startstationEdit->setText(begin->getstation()->getname());
     ui->endstationEdit->setText(end->getstation()->getname());
 }
@@ -54,7 +54,7 @@ void book::createTicket(QString trainnumber,int seatnumber,int beginnumber,int e
     QSqlTableModel searchtable;
     searchtable.setTable("tickets");
     int row=0;
-    searchtable.insertRow(row,1);
+    searchtable.insertRow(row);
 
     searchtable.setData(searchtable.index(row,static_cast<int>(TicketField::Ticket_Trainnumber)),trainnumber);
     searchtable.setData(searchtable.index(row,static_cast<int>(TicketField::Ticket_Profile_Id)),profile_id);

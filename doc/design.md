@@ -62,45 +62,338 @@
 - class basicdata(记录一些基本数据类，派生出profile,train,station,以及trainstation,用于操作与单个显示，大规模显示查询结果利用QSqlTableModel 与QSqlRelationalTableModel )
 
 ```
+enum class BasicDataType
+{
+    Train,
+    Profile,
+    Station,
+    TrainStation,
+    Ticket
+};
+//这里的类只用做显示不能更改，更改只能通过qsqltable;
+class BasicData
+{
+public:
+    BasicData(){}
+    virtual ~BasicData(){delete _record;}
+    virtual void load(QSqlRecord&src)=0;
+    QSqlRecord toSqlRecord();
+
+protected:
+    QSqlRecord* _record;
+};
+
+class TrainStation;
+class Train:public BasicData
+{
+public:
+    Train(QSqlRecord& src);
+    void load(QSqlRecord& src);
+    QList<TrainStation*> getstations();
+    TrainStation* getstation(int number);
+    int getindex(int station_id);
+    QString gettrainnumber()const；
+    SeatType getseattype()const；
+    SpeedType getspeedtype()const；
+    ~Train();
+ private:
+    QString trainnumber;
+    SeatType seattype;
+    SpeedType speedtype;
+    QList<TrainStation*> trainstations;
+
+};
+
+
+class Station:public BasicData
+{
+public:
+    Station(QSqlRecord& src);
+    void load(QSqlRecord& src);
+    int getid()const；
+    QString getname()const；
+    QString getprovince()const；
+private:
+    int id;
+    QString name;
+    QString province;
+
+};
+class Ticket:public BasicData
+{
+public:
+    Ticket(QSqlRecord& src);
+    void load(QSqlRecord& src);
+    Profile getProfile();
+    int getid()const；
+    int getseatnumber() const；
+    QString gettrainnumber() const；
+    QString getusername()const；
+
+
+ private:
+    int id;
+    int profile_id;
+    int seatnumber;
+    QString trainnumber;
+    int beginnumber;
+    int endnumber;
+    QString username;
+
+};
+
+class TrainStation:public BasicData
+{
+public:
+    TrainStation(QSqlRecord& src);
+    void load(QSqlRecord& src);
+    QString gettrainnumber()const{return trainnumber;}
+    QTime   getstarttime()const{return starttime;}
+    QTime	getarrivetime()const{return arrivetime;}
+    int 	getmiles()const{return miles;}
+    int 	getbookednumber()const{return bookednumber;}
+    int		getstation_id()const{return station_id;}
+    Station* getstation();
+private:
+    int id;
+    QString trainnumber;
+    QTime starttime;
+    QTime arrivetime;
+    Station* _station;
+    int station_id;
+    int miles;
+    int bookednumber;
+
+};
+
+class Profile:public BasicData
+{
+public:
+    Profile(QSqlRecord& src);
+    void load(QSqlRecord& src);
+    QString getsex()const；
+    int 	getid()const；
+    QString getname()const；
+    QString getcardid()const；
+    QString getphone()const；
+    QString getusername()const；
+ private:
+    int id;
+    QString sex;
+    QString name;
+    QString cardid;
+    QString phone;
+    QString username;
+
+};
+
+//还有枚举类来记录变量域，方便sql查询
+
+enum class ProfileField
+{
+    Profile_Id,
+    Profile_Sex,
+    Profile_Name,
+    Profile_Cardid,
+    Profile_Phone,
+    Profile_Username
+};
+
+enum class StationField
+{
+    Station_Id,
+    Station_Name,
+    Station_Province
+};
+
+enum class TicketField
+{
+    Ticket_Id,
+    Ticket_Profile_Id,
+    Ticket_Seatnumber,
+    Ticket_Trainnumber,
+    Ticket_Beginnumber,
+    Ticket_Endnumber,
+    Ticket_Username
+};
+enum class TrainField
+{
+    Train_Number,
+    Train_SeatType,
+    Train_SpeedType
+};
+
+enum class TrainStationField
+{
+    TrainStation_Id,
+    TrainStation_TrainNumber,
+    TrainStation_StartTime,
+    TrainStation_ArriveTime,
+    TrainStation_Station_Id,
+    TrainStation_Miles,
+    TrainStation_BookedNumber//被预定的票数
+};
+
+enum class UserField
+{
+    User_UserName,
+    User_Password,
+    User_Money,
+    User_Extrainformation
+};
+
+enum class ManagerField
+{
+    Manager_UserName,
+    Manager_Password,
+};
 	
 ```
 
-##QT界面控制//Qmainwindow的函数
+##QT界面控制
+###Form 类(用于更改基本数据)
+
+```
+class Form : public QDialog
+{
+    Q_OBJECT
+
+public:
+    explicit Form(QWidget *parent = 0);
 
 private:
+    virtual void addItem()=0;//执行增加元素的作用
+    virtual void deleteItem()=0;//执行删减元素的作用
+    virtual void createMap()=0;//创建表与数据库对应关系
+    virtual void createContents()=0;//创建表的内容
+    virtual void createTable()=0;//创建和链接表;
 
-	- enum Mode mode;
-	- Handler* handler;
-	
-	- createSignInpanel()创建登陆界面
-	- deleteLoginpanel()//之后的delete就不重复了
-	- createSignuppanel()//注册界面
-	- createNavigationbar()
-	- createProfielpanel()//显示用户个人信息界面
-	- createTrainspanel()//显示列车信息，包括沿途车站，Mmode下调用；
-	- createSearchTicketspanel()//显示搜索车票界面，包括一个搜索框与结果显示框
-	- createTicketpanel()/显示票界面
-	- clearView()/清空CentralWidget显示界面
 
-	QSqlRelationalTableModel* TrainModel;
-	QSqlRelationalTableModel* ProfileModel;
-	QWidget* Profilepanel;
-	...
-	
-private slots:
 
-	- //Mmode 下默认station不变
-	- showTrains();
-	- editTrains();
-	- addTrains();
-	- //Nmode
-	- editProfile();
-	- addProfile();
-	- bookTickets();
-	- showSignIn();
-	- showSignUp();
-	- showProfile();
-	- showTickets();
+protected:
+    Ui::Form ui;
+    QDataWidgetMapper* mapper;
+    QSqlRelationalTableModel* tableModel;
+    void on_addButton_clicked();
+    void on_deleteButton_clicked();
+};
+
+class ProfileForm : public Form
+{
+    Q_OBJECT
+public:
+    explicit ProfileForm(const QString& username,int id,QWidget* parent=0);
+private:
+    void addItem();
+    void deleteItem();
+
+
+    void createContents();
+    void createMap();
+    void createTable();
+
+
+    const QString& _username;
+
+
+    QLabel* usernameLabel;
+    QLineEdit* usernameEdit;
+
+    QLabel* nameLabel;
+    QLineEdit* nameEdit;
+
+    QLabel* sexLabel;
+    QComboBox* sexCombo;
+
+    QLabel* phoneLabel;
+    QLineEdit* phoneEdit;
+
+    QLabel* cardIdLabel;
+    QLineEdit* cardIdEdit;
+
+};
+
+class TrainForm : public Form
+{
+    Q_OBJECT
+public:
+    TrainForm(const QString& Trainnumber ,QWidget* parent);
+private:
+    void addItem();
+    void deleteItem();
+
+
+    void createContents();
+    void createMap();
+    void createTable();
+
+    QLabel* trainnumberLabel;
+    QLineEdit* trainnumberEdit;
+
+    QComboBox* seatCombo;
+    QLabel*  seatLabel;
+
+    QComboBox* speedCombo;
+    QLabel*  speedLabel;
+
+    QStringListModel* seatType;
+    QStringListModel* speedType;
+
+
+
+};
+
+class TrainStationForm : public Form
+{
+public:
+    TrainStationForm(int id,QWidget* parent);
+private:
+    void addItem();
+    void deleteItem();
+
+
+    void createContents();
+    void createMap();
+    void createTable();
+
+    QLabel* trainnumberLabel;
+    QComboBox* trainnumberCombo;
+
+    QLabel* starttimeLabel;
+    QTimeEdit* starttimeEdit;//editable
+
+    QLabel* arrivetimeLabel;
+    QTimeEdit* arrivetimeEdit;//editable
+
+    QLabel* stationLabel;
+    QComboBox* stationCombo;
+
+    QLabel* milesLabel;
+    QSpinBox* milesEdit;//editable
+
+    QLabel* bookedLabel;
+    QSpinBox* bookedEdit;//editable
+
+
+
+};
+
+```
+
+###用于显示的类
+ - mainwindow(登陆界面)
+   - managerview
+
+   - userview
+		- searchview
+			- seatview
+				- bookview
+		- password
+        
+		- charge
+        
+		- profileview	
+
 	
 	
  

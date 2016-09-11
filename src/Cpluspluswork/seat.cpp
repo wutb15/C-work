@@ -11,7 +11,7 @@
 #include <QObject>
 
 #include <QMessageBox>
-SeatView::SeatView(const Train *train, int beginnumber, int endnumber, const User *user, const Profile *profile, QWidget *parent):
+SeatView::SeatView( Train *train, int beginnumber, int endnumber,  User *user,  Profile *profile, QWidget *parent):
     QDialog(parent)
     ,ui(new Ui::SeatView)
 {
@@ -133,6 +133,7 @@ void SeatView::createChooseArea_S()
 SeatView::~SeatView()
 {
     delete ui;
+    delete train;
 }
 SeatView::on_bookButton_clicked()
 {

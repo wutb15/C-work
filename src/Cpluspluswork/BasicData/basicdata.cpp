@@ -1,10 +1,6 @@
 #include "basicdata.h"
 #include"../BasicDataField.h"
 #include<QListIterator>
-BasicData::BasicData()
-{
-
-}
 
 QSqlRecord BasicData::toSqlRecord()
 {
@@ -49,12 +45,12 @@ QList<TrainStation*> Train::getstations()
     search.setTable("trainstations");
     QString filter="trainnumber ='"+trainnumber+"'";
     search.setFilter(filter);
-    search.setSort(TrainStationField::TrainStation_Miles,Qt::AscendingOrder);
+    search.setSort(static_cast<int>(TrainStationField::TrainStation_Miles),Qt::AscendingOrder);
     search.select();
-    for(int i=0;i<search.rowcount();i++)
+    for(int i=0;i<search.rowCount();i++)
     {
         TrainStation* temp=new TrainStation(search.record(i));
-        this->trainnumber.append(temp);
+        this->trainstations.append(temp);
     }
 
 
@@ -159,7 +155,7 @@ Station* TrainStation::getstation()
     delete _station;
     QSqlTableModel model;
     model.setTable("stations");
-    model.setFilter(tr("id = '%1'").arg(station_id));
+    model.setFilter(QString("id = %1").arg(station_id));
     model.select();
     if(model.rowCount()==1)
     {
@@ -195,7 +191,7 @@ void Profile::load(QSqlRecord &src)
     this->phone=src.value("phone").toString();
     this->sex=src.value("sex").toString();
     this->username=src.value("username").toString();
-    record=new QSqlRecord(src);
+    _record=new QSqlRecord(src);
 }
 
 

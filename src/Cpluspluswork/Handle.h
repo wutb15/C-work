@@ -23,7 +23,7 @@ public:
     QString getpassword();
     void    setpassword(QString src);
     virtual ~Handle();
-    Handle(QSqlRecord src);
+    Handle(){}
     virtual QSqlRecord toSqlRecord()=0;
     virtual void  load(QSqlRecord& src)=0;
 
