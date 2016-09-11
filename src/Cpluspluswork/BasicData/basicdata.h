@@ -19,7 +19,7 @@ class BasicData
 public:
     BasicData(){}
     virtual ~BasicData(){delete _record;}
-    virtual void load(QSqlRecord&src)=0;
+    virtual void load(QSqlRecord& src)=0;
     QSqlRecord toSqlRecord();
 
 protected:
@@ -30,7 +30,7 @@ class TrainStation;
 class Train:public BasicData
 {
 public:
-    Train(QSqlRecord src);
+    Train(QSqlRecord& src);
     void load(QSqlRecord& src);
     QList<TrainStation*> getstations();
     TrainStation* getstation(int number);
@@ -51,7 +51,7 @@ public:
 class Station:public BasicData
 {
 public:
-    Station(QSqlRecord src);
+    Station(QSqlRecord& src);
     void load(QSqlRecord& src);
     int getid()const{return id;}
     QString getname()const{return name;}
@@ -66,13 +66,15 @@ class Profile;
 class Ticket:public BasicData
 {
 public:
-    Ticket(QSqlRecord src);
+    Ticket(QSqlRecord& src);
     void load(QSqlRecord& src);
     Profile getProfile();
     int getid()const{return id;}
     int getseatnumber() const{return seatnumber;}
     QString gettrainnumber() const{return trainnumber;}
     QString getusername()const{return username;}
+    int getbeginnumber()const{return beginnumber;}
+    int getendnumber()const{return endnumber;}
 
 
  private:
@@ -89,7 +91,7 @@ public:
 class TrainStation:public BasicData
 {
 public:
-    TrainStation(QSqlRecord src);
+    TrainStation(QSqlRecord& src);
     void load(QSqlRecord& src);
     QString gettrainnumber()const{return trainnumber;}
     QTime   getstarttime()const{return starttime;}
@@ -113,7 +115,7 @@ private:
 class Profile:public BasicData
 {
 public:
-    Profile(QSqlRecord src);
+    Profile(QSqlRecord& src);
     void load(QSqlRecord& src);
     QString getsex()const{return sex;}
     int 	getid()const{return id;}

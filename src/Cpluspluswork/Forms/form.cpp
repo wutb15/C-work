@@ -5,23 +5,22 @@ Form::Form(QWidget *parent) :
     QDialog(parent)
 {
     ui.setupUi(this);
-    ui.buttonBox->addButton(ui.addButton,QDialogButtonBox::ActionRole);
-    ui.buttonBox->addButton(ui.deleteButton,QDialogButtonBox::ActionRole);
-    connect(ui.firstButton,SIGNAL(clicked(bool)),this->mapper,SLOT(toFirst()));
-    connect(ui.lastButton,SIGNAL(clicked(bool)),this->mapper,SLOT(toLast()));
-    connect(ui.nextButton,SIGNAL(clicked(bool)),this->mapper,SLOT(toNext()));
-    connect(ui.previousButton,SIGNAL(clicked(bool)),this->mapper,SLOT(toPrevious()));
+
 
 
 }
 
-void Form::on_addButton_clicked()
+
+void Form::createconnections()
 {
-   this->addItem();
+    connect(ui.firstButton,SIGNAL(clicked()),this->mapper,SLOT(toFirst()));
+    connect(ui.lastButton,SIGNAL(clicked()),this->mapper,SLOT(toLast()));
+    connect(ui.nextButton,SIGNAL(clicked()),this->mapper,SLOT(toNext()));
+    connect(ui.previousButton,SIGNAL(clicked()),this->mapper,SLOT(toPrevious()));
+    connect(ui.addButton,SIGNAL(clicked()),this,SLOT(addItem()));
+    connect(ui.deleteButton,SIGNAL(clicked()),this,SLOT(deleteItem()));
+    connect(ui.confirmButton,SIGNAL(clicked(bool)),this->mapper,SLOT(submit()));
+    connect(ui.confirmButton,SIGNAL(clicked(bool)),this,SLOT(close()));
 }
 
-void Form::on_deleteButton_clicked()
-{
-    this->deleteItem();
-}
 

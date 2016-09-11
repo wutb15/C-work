@@ -7,6 +7,7 @@ TrainStationForm::TrainStationForm(int id,QWidget* parent):Form(parent)
     createContents();
     createTable();
     createMap();
+    createconnections();
 
     if(id!=-1)
     {
@@ -164,7 +165,6 @@ void TrainStationForm::addItem()
 
 
     this->arrivetimeEdit->setFocus();
-    //TODO
 }
 
 void TrainStationForm::deleteItem()

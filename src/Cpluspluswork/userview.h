@@ -16,11 +16,13 @@ public:
 private:
     Ui::UserView *ui;
     User *user;
+    Profile* profile;
 private slots:
-    on_searchButton_clicked();
-    on_pwdButton_clicked();
-    on_infoButton_clicked();
-    on_ticketButton_clicked();
+    void  on_searchButton_clicked();
+    void on_pwdButton_clicked();
+    void on_infoButton_clicked();
+    void on_ticketButton_clicked();
 
+    void on_exitButton_clicked();
 };
 #endif // USERVIEW_H

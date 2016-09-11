@@ -1,5 +1,5 @@
 #include "managerview.h"
-#include "ui_managerview.h"
+#include "ui_ManagerView.h"
 #include <QtGui>
 #include <QSqlQueryModel>
 #include <QTableView>
@@ -19,10 +19,12 @@ ManagerView::~ManagerView()
 {
     delete ui;
 }
-ManagerView::ManagerView(QWidget *parent) :
+ManagerView::ManagerView(Manager* manager,QWidget *parent) :
+    QDialog(parent),
 
     ui(new Ui::ManagerView)
 {
+    this->manager=manager;
 
     createTrainPanel();
     createStationPanel();
@@ -41,9 +43,9 @@ ManagerView::ManagerView(QWidget *parent) :
 enum
 {
 
-    Trains_trainnumber=1,
-    Trains_seattype=2,
-    Trains_speedtype=3
+    Trains_trainnumber=0,
+    Trains_seattype=1,
+    Trains_speedtype=2
 };
 
 void ManagerView::createTrainPanel()
@@ -75,13 +77,13 @@ void ManagerView::createTrainPanel()
 enum
 {
 
-    Stations_id=1,
-    Stations_trainnumber=2,
-    Stations_starttime=3,
-    Stations_arrivetime=4,
-    Stations_stationid=5,
-    Stations_miles=6,
-    Stations_bookednumber=7
+    Stations_id,
+    Stations_trainnumber,
+    Stations_starttime,
+    Stations_arrivetime,
+    Stations_stationid,
+    Stations_miles,
+    Stations_bookednumber
 
 };
 

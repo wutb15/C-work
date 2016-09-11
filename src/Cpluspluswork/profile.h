@@ -20,13 +20,13 @@ private:
     User *user;
     void createProfilePanel();
     QSqlRelationalTableModel *profileModel;
-    QWidget *profilePanel;
     QTableView *profileView;
-    QPushButton *changeButton;
-    QPushButton *backButton;
+
+    void updateview();
 private slots:
+
     void on_changeButton_clicked();
-    void on_backButton_clicked();
+    void on_closeButton_clicked();
 };
 
 #endif // PROFILE_H

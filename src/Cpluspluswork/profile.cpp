@@ -20,9 +20,7 @@ ProfileView::ProfileView(User *user0,QWidget *parent) :
     ui->setupUi(this);
     user=user0;
     createProfilePanel();
-    QSplitter layout(Qt::Vertical);
-    layout.addWidget(profilePanel);
-    layout.addWidget(changeButton);
+    ui->gridLayout->addWidget(profileView);
 }
 
 
@@ -32,17 +30,16 @@ ProfileView::~ProfileView()
 }
 enum
 {
-    Profiles_id=1,
-    Profiles_sex=2,
-    Profiles_name=3,
-    Profiles_cardid=4,
-    Profiles_phone=5,
-    Profiles_username=6
+    Profiles_id=0,
+    Profiles_sex,
+    Profiles_name,
+    Profiles_cardid,
+    Profiles_phone,
+    Profiles_username
 
 };
 void ProfileView::createProfilePanel()
 {
-    profilePanel=new QWidget;
     profileModel=new QSqlRelationalTableModel(this);
     profileModel->setTable("profiles");
     profileModel->setSort(Profiles_id,Qt::AscendingOrder);
@@ -50,6 +47,8 @@ void ProfileView::createProfilePanel()
     profileModel->setHeaderData(Profiles_sex,Qt::Horizontal,tr("sex"));
     profileModel->setHeaderData(Profiles_name,Qt::Horizontal,tr("name"));
     profileModel->setHeaderData(Profiles_phone,Qt::Horizontal,tr("phone"));
+
+    profileModel->setFilter(QString("username = '%1'").arg(user->getusername()));
 
     profileModel->select();
 
@@ -63,15 +62,10 @@ void ProfileView::createProfilePanel()
 
     profileView->setColumnHidden(Profiles_cardid, true);
     profileView->setColumnHidden(Profiles_username, true);
-    QModelIndex index=profileView->currentIndex();
-    if(index.isValid())
-    {
-        QSqlRecord record =profileModel->record(index.row());
-        QString name=record.value("username").toString();
-        profileModel->setFilter(QString("username= '%1'").arg(name));
-    }
 
 }
+
+
 
 void ProfileView::on_changeButton_clicked()
 {
@@ -84,10 +78,26 @@ void ProfileView::on_changeButton_clicked()
     }
     ProfileForm form1(user->getusername(),profileId,this);
     form1.exec();
+    updateview();
+
 }
-void ProfileView::on_backButton_clicked()
+
+void ProfileView::updateview()
 {
-    UserView userview1(user);
-    userview1.show();
-    this->close();
+    profileModel->clear();
+    profileModel->setTable("profiles");
+    profileModel->setSort(Profiles_id,Qt::AscendingOrder);
+    profileModel->setHeaderData(Profiles_id,Qt::Horizontal,tr("id"));
+    profileModel->setHeaderData(Profiles_sex,Qt::Horizontal,tr("sex"));
+    profileModel->setHeaderData(Profiles_name,Qt::Horizontal,tr("name"));
+    profileModel->setHeaderData(Profiles_phone,Qt::Horizontal,tr("phone"));
+
+    profileModel->setFilter(QString("username = '%1'").arg(user->getusername()));
+
+    profileModel->select();
+}
+
+void ProfileView::on_closeButton_clicked()
+{
+   this->close();
 }

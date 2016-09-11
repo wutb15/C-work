@@ -25,8 +25,6 @@ private:
     Ui::MainWindow *ui;
     Handle* handler;
     HandleType type;
-    User* user0;
-    Manager* manager0;
 };
 
 #endif // MAINWINDOW_H

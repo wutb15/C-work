@@ -11,6 +11,7 @@
 #include"User.h"
 #include"Handle.h"
 #include"managerview.h"
+#include"Manager.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -45,11 +46,13 @@ void MainWindow::on_logButton_clicked()//用户点击登录按钮
             }
             else//用户名和密码都正确
             {
-                user0=new User(user.record(0));
-               // accept();
-                UserView userview1(user0);
-                userview1.show();
+
+                this->handler=new User(user.record(0));
+                UserView userview1(dynamic_cast<User*>(this->handler),this);
                 this->close();
+
+                userview1.exec();
+
 
             }
         }
@@ -72,11 +75,10 @@ void MainWindow::on_logButton_clicked()//用户点击登录按钮
             if(manager.record(0).value("password").toString()==ui->passwordEdit->text())
             {
 
-                manager0=new Manager(manager.record(0));
-                //accept();
-                ManagerView managerview1;
-                managerview1.show();
+                this->handler=new Manager(manager.record(0));
+                ManagerView managerview1(dynamic_cast<Manager*>(handler));
                 this->close();
+                managerview1.exec();
 
             }
         }
@@ -111,9 +113,10 @@ void MainWindow::on_newButton_clicked()//用户点击注册按钮
             query.exec();
             QSqlTableModel user;
             user.setTable("users");
-            user0=new User(user.record(0));
-            UserView userview1(user0);
-            userview1.show();
+            this->handler=new User(user.record(0));
+            UserView userview1(dynamic_cast<User*>(this->handler));
+            this->close();
+            userview1.exec();
         }
             ui->passwordEdit->clear();
             ui->usernameEdit->clear();

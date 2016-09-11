@@ -14,7 +14,7 @@ QSqlRecord BasicData::toSqlRecord()
 
 
 
-Train::Train(QSqlRecord &src)
+Train::Train(QSqlRecord& src)
 {
     this->seattype=static_cast<SeatType>(src.value("seattype").toInt());
     this->speedtype=static_cast<SpeedType>(src.value("speedtype").toInt());
@@ -125,7 +125,7 @@ void Station::load(QSqlRecord &src)
 
 
 
-TrainStation::TrainStation(QSqlRecord src)
+TrainStation::TrainStation(QSqlRecord& src)
 {
     _record=new QSqlRecord(src);
     this->id=src.value("id").toInt();
@@ -171,7 +171,7 @@ Station* TrainStation::getstation()
 
 
 
-Profile::Profile(QSqlRecord src)
+Profile::Profile(QSqlRecord& src)
 {
     this->id=src.value("id").toInt();
     this->name=src.value("name").toString();

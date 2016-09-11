@@ -51,7 +51,14 @@ QList<Profile*> User::getprofiles()
 
 Profile* User::getprofile(int number)
 {
-    return this->getprofiles().at(number);
+    if(number<this->getprofiles().size())
+    {
+        return this->getprofiles().at(number);
+    }
+    else
+    {
+        return nullptr;
+    }
 }
 
 

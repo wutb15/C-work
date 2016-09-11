@@ -12,16 +12,15 @@
 #include <QDialogButtonBox>
 #include <QMessageBox>
 #include "userview.h"
-TicketView::TicketView(User *user0,QWidget *parent) :
-    QDialog(parent),
+
+
+
+TicketView::TicketView(User *user0,QWidget *parent):QDialog(parent),
     ui(new Ui::TicketView)
 {
     ui->setupUi(this);
     user=user0;
-    createTicketPanel();
-    QSplitter layout(Qt::Vertical);
-    layout.addWidget(ticketPanel);
-    layout.addWidget(backButton);
+    createTicketContent();
 }
 
 
@@ -32,51 +31,54 @@ TicketView::~TicketView()
 enum
 {
 
-    Tickets_id=1,
-    Tickets_profileid=2,
-    Tickets_seatnumber=3,
-    Tickets_trainnumber=4,
-    Tickets_beginnumber=5,
-    Tickets_endnumber=6
+    Tickets_id=0,
+    Tickets_profileid,
+    Tickets_seatnumber,
+    Tickets_trainnumber,
+    Tickets_beginnumber,
+    Tickets_endnumber
 
 };
-void TicketView::createTicketPanel()
+void TicketView::createTicketContent()
 {
-    ticketPanel=new QWidget;
-    ticketModel=new QSqlRelationalTableModel(this);
-    ticketModel->setTable("tickets");
-    ticketModel->setSort(Tickets_id,Qt::AscendingOrder);
-    ticketModel->setHeaderData(Tickets_id,Qt::Horizontal,tr("id"));
-    ticketModel->setHeaderData(Tickets_profileid,Qt::Horizontal,tr("sex"));
-    ticketModel->setHeaderData(Tickets_seatnumber,Qt::Horizontal,tr("name"));
-    ticketModel->setHeaderData(Tickets_trainnumber,Qt::Horizontal,tr("phone"));
+    QSqlTableModel model;
+    model.setTable("tickets");
+    model.setFilter(QString("username = '%1'").arg(user->getusername()));
+    model.select();
+    ui->tableWidget->resize(model.rowCount(),6);
+    ui->tableWidget->setHorizontalHeaderItem(0,new QTableWidgetItem(tr("trainnumber")));
+    ui->tableWidget->setHorizontalHeaderItem(1,new QTableWidgetItem(tr("startstation")));
+    ui->tableWidget->setHorizontalHeaderItem(2,new QTableWidgetItem(tr("endstation")));
+    ui->tableWidget->setHorizontalHeaderItem(3,new QTableWidgetItem(tr("starttime")));
+    ui->tableWidget->setHorizontalHeaderItem(4,new QTableWidgetItem(tr("arrivetime")));
+    ui->tableWidget->setHorizontalHeaderItem(5,new QTableWidgetItem(tr("cardid")));
 
-
-    ticketView=new QTableView;
-    ticketView->setModel(ticketModel);
-    ticketView->setSelectionMode(QAbstractItemView::SingleSelection);
-    ticketView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ticketView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ticketView->resizeColumnsToContents();
-    ticketView->horizontalHeader()->setStretchLastSection(true);
-
-    ticketView->setColumnHidden(Tickets_beginnumber, true);
-    ticketView->setColumnHidden(Tickets_endnumber, true);
-    QModelIndex index=ticketView->currentIndex();
-    if(index.isValid())
+    ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    for(int i=0;i<model.rowCount();i++)
     {
-    QSqlRecord record =ticketModel->record(index.row());
-    QString name=record.value("username").toString();
-    ticketModel->setFilter(QString("username=%1").arg(name));
+        Ticket ticket(model.record(i));
+        QSqlTableModel trains;
+        QString trainnumber=ticket.gettrainnumber();
+        trains.setFilter(QString("trainnumber = '%1'").arg(trainnumber));
+        if(trains.rowCount()==1)
+        {
+            Train train(trains.record(0));
+            ui->tableWidget->setItem(i,0,new QTableWidgetItem(train.gettrainnumber()));
+            ui->tableWidget->setItem(i,1,new QTableWidgetItem(train.getstation(ticket.getbeginnumber())->getstation()->getname()));
+            ui->tableWidget->setItem(i,2,new QTableWidgetItem(train.getstation(ticket.getendnumber())->getstation()->getname()));
+            ui->tableWidget->setItem(i,3,new QTableWidgetItem(train.getstation(ticket.getbeginnumber())->getstarttime().toString()));
+            ui->tableWidget->setItem(i,4,new QTableWidgetItem(train.getstation(ticket.getendnumber())->getarrivetime().toString()));
+            ui->tableWidget->setItem(i,5,new QTableWidgetItem(ticket.getProfile().getcardid()));
+
+        }
+
     }
-    ticketModel->select();
 
 }
 
 
-void TicketView::on_backButton_clicked()
+void TicketView::on_closeButton_clicked()
 {
-    UserView userview1(user);
-    userview1.show();
-    this->close();
+   this->close();
 }

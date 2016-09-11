@@ -8,36 +8,56 @@
 #include"userview.h"
 #include"ui_userview.h"
 
+#include"ticket.h"
+class TicketView;
 UserView::UserView(User *user0,QWidget *parent) :
     QDialog(parent),
     ui(new Ui::UserView)
 {
     ui->setupUi(this);
     user=user0;
+    profile=user->getprofile();
+    if(profile==nullptr)
+    {
+        ui->searchButton->setEnabled(false);
+
+    }
 }
 
 UserView::~UserView()
 {
     delete ui;
+    delete profile;
 }
-UserView::on_searchButton_clicked()
+void UserView::on_searchButton_clicked()
 {
-    SearchView searchview1;
-    searchview1.show();
+    SearchView searchview1(user,profile,this);
+    searchview1.exec();
 }
 
-UserView::on_pwdButton_clicked()
+void UserView::on_pwdButton_clicked()
 {
-    AccountView accountview1;
-    accountview1.show();
+    AccountView accountview1(user,this);
+    accountview1.exec();
 }
-UserView::on_infoButton_clicked()
+
+void UserView::on_infoButton_clicked()
 {
-    ProfileView profileview1;
-    profileview1.show();
+    ProfileView profileview1(user,this);
+    profileview1.exec();
 }
-UserView::on_ticketButton_clicked()
+
+void UserView::on_ticketButton_clicked()
 {
-    TicketView ticketview1;
-    ticketview1.show();
+    TicketView ticketview1(user,this);
+
+
+    ticketview1.exec();
+}
+
+
+
+void UserView::on_exitButton_clicked()
+{
+   this->close();
 }

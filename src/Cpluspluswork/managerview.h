@@ -5,14 +5,15 @@
 #include <QDialogButtonBox>
 #include<QTableView>
 #include <QLabel>
+#include"Manager.h"
 namespace Ui {
     class ManagerView;
 }
-class ManagerView:public QWidget
+class ManagerView:public QDialog
 {
     Q_OBJECT
 public:
-    explicit ManagerView(QWidget *parent = 0);
+    explicit ManagerView(Manager* manager,QWidget* parent=0);
     ~ManagerView();
 private slots:
     void addTrain();
@@ -35,5 +36,6 @@ private:
     QPushButton *addtrain;
     QPushButton *deletetrain;
     QPushButton *editstation;
+    Manager* manager;
 };
 #endif // MANAGERVIEW_H

@@ -16,6 +16,7 @@ TrainForm::TrainForm(const QString &trainnumber,QWidget*parent):Form(parent)
     createContents();
     createTable();
     createMap();
+    createconnections();
 
     if(trainnumber!="")
     {

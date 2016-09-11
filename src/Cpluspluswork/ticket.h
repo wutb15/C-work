@@ -18,12 +18,10 @@ public:
 private:
     Ui::TicketView *ui;
     User *user;
-    void createTicketPanel();
-    QSqlRelationalTableModel *ticketModel;
-    QWidget *ticketPanel;
-    QTableView *ticketView;
-    QPushButton *backButton;
+    void createTicketContent();
 private slots:
-    void on_backButton_clicked();
+    void on_closeButton_clicked();
 };
+
+
 #endif // TICKET_H

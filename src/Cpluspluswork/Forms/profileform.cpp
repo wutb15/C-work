@@ -2,6 +2,7 @@
 #include<QRegExpValidator>
 #include"BasicDataField.h"
 #include<QSqlRecord>
+#include<QDebug>
 class Ui::Form;
 
 ProfileForm::ProfileForm(const QString& username, int id,QWidget* parent):Form(parent),_username(username)
@@ -10,6 +11,7 @@ ProfileForm::ProfileForm(const QString& username, int id,QWidget* parent):Form(p
     createContents();
     createTable();
     createMap();
+    createconnections();
 
     if(id!=-1)
     {
@@ -102,7 +104,7 @@ void ProfileForm::createTable()
     tableModel=new QSqlRelationalTableModel(this);
     tableModel->setTable("profiles");
     tableModel->setSort(static_cast<int>(ProfileField::Profile_Id),Qt::AscendingOrder);
-    tableModel->setFilter(("username = " + _username));
+    tableModel->setFilter(QString("username ='%1' " ).arg( _username));
     tableModel->select();
 
 
@@ -114,6 +116,7 @@ void ProfileForm::createMap()
     mapper=new QDataWidgetMapper(this);
     mapper->setSubmitPolicy(QDataWidgetMapper::AutoSubmit);
     mapper->setModel(tableModel);
+    qDebug()<<tableModel->record(0).value(0).toString();
     mapper->addMapping(sexCombo,static_cast<int>(ProfileField::Profile_Sex));
     mapper->addMapping(this->nameEdit,static_cast<int>(ProfileField::Profile_Name));
     mapper->addMapping(this->usernameEdit,static_cast<int>(ProfileField::Profile_Username));
