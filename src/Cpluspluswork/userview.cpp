@@ -8,11 +8,12 @@
 #include"userview.h"
 #include"ui_userview.h"
 
-UserView::UserView(QWidget *parent) :
+UserView::UserView(User *user0,QWidget *parent) :
     QDialog(parent),
     ui(new Ui::UserView)
 {
     ui->setupUi(this);
+    user=user0;
 }
 
 UserView::~UserView()
@@ -34,4 +35,9 @@ UserView::on_infoButton_clicked()
 {
     ProfileView profileview1;
     profileview1.show();
+}
+UserView::on_ticketButton_clicked()
+{
+    TicketView ticketview1;
+    ticketview1.show();
 }

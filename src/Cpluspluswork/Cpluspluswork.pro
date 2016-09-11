@@ -28,7 +28,8 @@ SOURCES += main.cpp\
     profile.cpp \
     seat.cpp \
     userview.cpp \
-    managerview.cpp
+    managerview.cpp \
+    ticket.cpp
 
 HEADERS  += Handle.h \
     User.h \
@@ -46,7 +47,8 @@ HEADERS  += Handle.h \
     profile.h \
     seat.h \
     userview.h \
-    managerview.h
+    managerview.h \
+    ticket.h
 
 FORMS    +=mainwindow.ui \
     Forms/form.ui\
@@ -56,6 +58,7 @@ FORMS    +=mainwindow.ui \
     profile.ui \
     seat.ui \
     userview.ui \
-    book.ui
+    book.ui \
+    ticket.ui
 
 RESOURCES +=work.qrc

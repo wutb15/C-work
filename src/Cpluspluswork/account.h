@@ -12,7 +12,7 @@ class AccountView : public QDialog
     Q_OBJECT
 
 public:
-    explicit AccountView(User* user,QWidget *parent = 0);
+    explicit AccountView(User* user0,QWidget *parent = 0);
     ~AccountView();
 
 private:
@@ -22,6 +22,7 @@ private:
 
 private slots:
     void on_pwdButton_clicked();
+    void on_backButton_clicked();
 };
 
 #endif // ACCOUNT_H
