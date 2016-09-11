@@ -86,6 +86,7 @@ void SeatView::createChooseArea_B()
 
 void SeatView::createChooseArea_S()
 {
+
      ui->seats->resize(20,7);
      int number=0;
      for(int i=0;i<20;i++)
@@ -110,7 +111,7 @@ void SeatView::createChooseArea_S()
                  query.bindValue(":trainnumber",this->train->gettrainnumber());
                  if(query.next())
                  {
-                     QTableWidgetItem* item =new QTableWidgetItem(tr("%1 %2").arg(i).arg(words.at(j)));
+                     QTableWidgetItem* item =new QTableWidgetItem(QString("%1").arg(number));
                      item->setBackgroundColor(QColor(Qt::GlobalColor::gray));
                      item->setTextColor(QColor(Qt::GlobalColor::black));
                      ui->seats->setItem(i,j,item);
@@ -118,7 +119,7 @@ void SeatView::createChooseArea_S()
                  }
                  else
                  {
-                     QTableWidgetItem* item =new QTableWidgetItem(tr("%1 %2").arg(i).arg(words.at(j)));
+                     QTableWidgetItem* item =new QTableWidgetItem(QString("%1").arg(number));
                      item->setBackgroundColor(QColor(Qt::GlobalColor::white));
                      item->setTextColor(QColor(Qt::GlobalColor::black));
                      ui->seats->setItem(i,j,item);
@@ -135,7 +136,7 @@ SeatView::~SeatView()
     delete ui;
     delete train;
 }
-SeatView::on_bookButton_clicked()
+void SeatView::on_bookButton_clicked()
 {
     int number;
     if(this->train->getseattype()==SeatType::Bed)
@@ -156,7 +157,7 @@ SeatView::on_bookButton_clicked()
         }
 
     }
-    book book1=book(this->user,this->train,this->profile,number,this->beginnumber,this->endnumber,this);
+    book book1(this->user,this->train,this->profile,number,this->beginnumber,this->endnumber,this);
     book1.exec();
 
 }

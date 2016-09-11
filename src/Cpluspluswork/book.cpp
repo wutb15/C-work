@@ -98,7 +98,7 @@ void book::on_bookButton_clicked()
          createTicket(train->gettrainnumber(),seatnumber,beginnumber,endnumber,profile->getid(),this->passenger->getusername());
          addNumber();
 
-        QMessageBox::warning(this,tr("提示"),tr("订票成功"),QMessageBox::Close);
+        QMessageBox::information(this,QString("提示"),QString("订票成功"),QMessageBox::Close);
     }
     else
     {

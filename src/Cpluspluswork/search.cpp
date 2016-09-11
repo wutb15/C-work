@@ -37,7 +37,7 @@ SearchView::~SearchView()
 
 void SearchView::on_bookButton_clicked()
 {
-    if(ui->tableWidget->item(ui->tableWidget->currentRow(),4)->text()==QString("可选"))
+    if(ui->tableWidget->item(ui->tableWidget->currentRow(),4)->text()==tr("selectable"))
     {
         QString trainnumber(ui->tableWidget->item(ui->tableWidget->currentRow(),0)->text());
         QSqlTableModel model;
@@ -90,14 +90,14 @@ void SearchView::on_searchButton_clicked()
     ui->tableWidget->clear();
     ui->tableWidget->resize(trainnumbers.size(),5);
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->tableWidget->setSelectionMode(QAbstractItemView::SelectRows);
+    ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableWidget->setFont(QFont("Helvetica"));
 
-    ui->tableWidget->setHorizontalHeaderItem(0,new QTableWidgetItem(QString("列车号")));
-    ui->tableWidget->setHorizontalHeaderItem(1,new QTableWidgetItem(QString("出发时间")));
-    ui->tableWidget->setHorizontalHeaderItem(2,new QTableWidgetItem(QString("到达时间")));
-    ui->tableWidget->setHorizontalHeaderItem(3,new QTableWidgetItem(QString("余票")));
-    ui->tableWidget->setHorizontalHeaderItem(4,new QTableWidgetItem(QString("状态")));
+    ui->tableWidget->setHorizontalHeaderItem(0,new QTableWidgetItem(tr("trainnumber")));
+    ui->tableWidget->setHorizontalHeaderItem(1,new QTableWidgetItem(tr("starttime")));
+    ui->tableWidget->setHorizontalHeaderItem(2,new QTableWidgetItem(tr("arrivetime")));
+    ui->tableWidget->setHorizontalHeaderItem(3,new QTableWidgetItem(tr("remaintickets")));
+    ui->tableWidget->setHorizontalHeaderItem(4,new QTableWidgetItem(tr("status")));
 
 
     for(int i=0;i<trainnumbers.size();i++)
@@ -118,7 +118,7 @@ void SearchView::on_searchButton_clicked()
             bookedtickets=qMax(temp.getstation(i)->getbookednumber(),bookedtickets);
 
         }
-        if(temp.getseattype()=SeatType::Bed)
+        if(temp.getseattype()==SeatType::Bed)
         {
             remaintickets=60-bookedtickets;
         }
@@ -131,16 +131,16 @@ void SearchView::on_searchButton_clicked()
 
 
         ui->tableWidget->setItem(i,0,new QTableWidgetItem(temp.gettrainnumber()));
-        ui->tableWidget->setItem(i,1,new QTableWidgetItem(starttime));
-        ui->tableWidget->setItem(i,2,new QTableWidgetItem(endtime));
+        ui->tableWidget->setItem(i,1,new QTableWidgetItem(starttime.toString()));
+        ui->tableWidget->setItem(i,2,new QTableWidgetItem(endtime.toString()));
         ui->tableWidget->setItem(i,3,new QTableWidgetItem(remaintickets));
         if(selectable)
         {
-            ui->tableWidget->setItem(i,4,new QTableWidgetItem(QString("可选")));
+            ui->tableWidget->setItem(i,4,new QTableWidgetItem(QString("selectable")));
         }
         else
         {
-             ui->tableWidget->setItem(i,4,new QTableWidgetItem(QString("不可选")));
+             ui->tableWidget->setItem(i,4,new QTableWidgetItem(QString("unselectable")));
         }
 
 
