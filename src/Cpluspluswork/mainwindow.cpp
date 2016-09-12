@@ -67,7 +67,6 @@ void MainWindow::on_logButton_clicked()//用户点击登录按钮
         manager.setTable("managers");
         QString filter= QString("username = '")+ui->usernameEdit->text()+QString("'");
         manager.setFilter(filter);
-        manager.setFilter(filter);
         manager.select();
 
         if(manager.rowCount()==1)

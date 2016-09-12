@@ -20,12 +20,15 @@ SeatView::SeatView( Train *train, int beginnumber, int endnumber,  User *user,  
     this->endnumber=endnumber;
     this->user=user;
     this->profile=profile;
+    ui->setupUi(this);
     switch(this->train->getseattype())
     {
         case SeatType::Bed:
+            qDebug()<<"hello";
             this->createChooseArea_B();
             break;
         case SeatType::Sit:
+            qDebug()<<"wa";
             this->createChooseArea_S();
             break;
         default:
@@ -34,12 +37,13 @@ SeatView::SeatView( Train *train, int beginnumber, int endnumber,  User *user,  
 
 
     }
-    ui->setupUi(this);
+
 }
 
 void SeatView::createChooseArea_B()
 {
-    ui->seats->resize(20,3);
+    ui->seats->setRowCount(20);
+    ui->seats->setColumnCount(3);
 
     ui->seats->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->seats->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -62,7 +66,7 @@ void SeatView::createChooseArea_B()
             query.exec();
             if(query.next())
             {
-                QTableWidgetItem* item =new QTableWidgetItem(tr("%1 %2").arg(i).arg(words.at(j)));
+                QTableWidgetItem* item =new QTableWidgetItem(QString("%1 %2").arg(i).arg(words.at(j)));
                 item->setBackgroundColor(QColor(Qt::GlobalColor::gray));//灰色代表无法选，白色代表可选；
                 item->setTextColor(QColor(Qt::GlobalColor::black));
                 ui->seats->setItem(i,j,item);
@@ -72,7 +76,7 @@ void SeatView::createChooseArea_B()
             }
             else
             {
-               QTableWidgetItem* item =new QTableWidgetItem(tr("%1 %2").arg(i).arg(words.at(j)));
+               QTableWidgetItem* item =new QTableWidgetItem(QString("%1 %2").arg(i).arg(words.at(j)));
                item->setBackgroundColor(QColor(Qt::GlobalColor::white));
                item->setTextColor(QColor(Qt::GlobalColor::black));
                ui->seats->setItem(i,j,item);
@@ -87,16 +91,18 @@ void SeatView::createChooseArea_B()
 void SeatView::createChooseArea_S()
 {
 
-     ui->seats->resize(20,7);
+     ui->seats->setColumnCount(7);
+     ui->seats->setRowCount(20);
      int number=0;
      for(int i=0;i<20;i++)
      {
          for(int j=0;j<7;j++)
          {
-             if(j=3)
+             if(j==3)
              {
+                  //ui->seats->item(i,j)->setBackgroundColor(QColor(Qt::GlobalColor::red));
                  continue;
-                 ui->seats->item(i,j)->setBackgroundColor(QColor(Qt::GlobalColor::red));
+
 
 
              }
@@ -134,7 +140,6 @@ void SeatView::createChooseArea_S()
 SeatView::~SeatView()
 {
     delete ui;
-    delete train;
 }
 void SeatView::on_bookButton_clicked()
 {

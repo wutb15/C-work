@@ -35,9 +35,13 @@ void Train::load(QSqlRecord &src)
 QList<TrainStation*> Train::getstations()
 {
 
-    for(auto i:this->trainstations)
+    for(int i=0;i<trainstations.size();i++)
     {
-        delete i;
+        if(trainstations.at(i)==nullptr)
+        {
+            continue;
+        }
+        delete trainstations.at(i);
 
     }
     this->trainstations.clear();
@@ -83,10 +87,13 @@ int Train::getindex(int station_id)
 
 Train::~Train()
 {
-    delete _record;
-    for(auto i:this->trainstations)
+    for(int i=0;i<trainstations.size();i++)
     {
-        delete i;
+        if(trainstations.at(i)==nullptr)
+        {
+            continue;
+        }
+        delete trainstations.at(i);
 
     }
 }

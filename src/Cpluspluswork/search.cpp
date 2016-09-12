@@ -27,6 +27,18 @@ SearchView::SearchView(User* user,Profile* profile,QWidget *parent) :
                                         temp.value(static_cast<int>(StationField::Station_Name)).toString());
 
     }
+    ui->tableWidget->setColumnCount(5);
+    ui->tableWidget->setRowCount(2);
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    QStringList head;
+    head<<"trainnumber"<<"starttime"<<"arrivetime"<<"remaintickets"<<"status";
+    ui->tableWidget->setHorizontalHeaderLabels(head);
+    ui->tableWidget->setItem(0,1,new QTableWidgetItem("new"));
+
+
+
+
 
 }
 
@@ -42,14 +54,17 @@ void SearchView::on_bookButton_clicked()
         QString trainnumber(ui->tableWidget->item(ui->tableWidget->currentRow(),0)->text());
         QSqlTableModel model;
         model.setTable("trains");
-        model.setFilter(tr("trainnumber = '%1'").arg(trainnumber));
+        model.setFilter(QString("trainnumber = '%1'").arg(trainnumber));
         model.select();
+
         if(model.rowCount()==1)
         {
             Train* train =new Train(model.record(0));
-            SeatView seatview1(train,train->getindex(ui->startstationBox->currentIndex()),
-                               train->getindex(ui->endstationBox->currentIndex()),this->user,this->profile,this);
+            qDebug()<<train->gettrainnumber();
+            SeatView seatview1(train,train->getindex(ui->startstationBox->currentIndex()+1),
+                               train->getindex(ui->endstationBox->currentIndex()+1),this->user,this->profile,this);
             seatview1.exec();
+            delete train;
         }
 
 
@@ -69,16 +84,20 @@ void SearchView::on_searchButton_clicked()
     QSqlTableModel start;
     QSqlTableModel result;
     start.setTable("trainstations");
-    start.setFilter(tr("station_id = %1").arg(ui->startstationBox->currentIndex()));
+    start.setFilter(QString("station_id = '%1'").arg(ui->startstationBox->currentIndex()+1));
     start.select();
+    qDebug()<<QString("station_id = '%1'").arg(ui->startstationBox->currentIndex()+1);
+    qDebug()<<start.rowCount();
+
     QList<QString>trainnumbers;
     int count=0;
     for(int i=0;i<start.rowCount();i++)
     {
         QString trainnumber=start.record(i).value(static_cast<int>(TrainStationField::TrainStation_TrainNumber)).toString();
+        qDebug()<<trainnumber;
         int miles=start.record(i).value(static_cast<int>(TrainStationField::TrainStation_Miles)).toInt();
         result.setTable("trainstations");
-        result.setFilter(tr("station_id= %1 and trainnumber= '%2' and miles > %3").arg(ui->endstationBox->currentIndex())
+        result.setFilter(tr("station_id= %1 and trainnumber= '%2' and miles > %3").arg(ui->endstationBox->currentIndex()+1)
                          .arg(trainnumber).arg(miles));
         result.select();
         if(result.rowCount()==1)
@@ -88,37 +107,39 @@ void SearchView::on_searchButton_clicked()
         }
     }
     ui->tableWidget->clear();
-    ui->tableWidget->resize(trainnumbers.size(),5);
+    ui->tableWidget->setRowCount(trainnumbers.size());
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableWidget->setFont(QFont("Helvetica"));
 
-    ui->tableWidget->setHorizontalHeaderItem(0,new QTableWidgetItem(tr("trainnumber")));
-    ui->tableWidget->setHorizontalHeaderItem(1,new QTableWidgetItem(tr("starttime")));
-    ui->tableWidget->setHorizontalHeaderItem(2,new QTableWidgetItem(tr("arrivetime")));
-    ui->tableWidget->setHorizontalHeaderItem(3,new QTableWidgetItem(tr("remaintickets")));
-    ui->tableWidget->setHorizontalHeaderItem(4,new QTableWidgetItem(tr("status")));
-
+    QStringList head;
+    head<<"trainnumber"<<"starttime"<<"arrivetime"<<"remaintickets"<<"status";
+    ui->tableWidget->setHorizontalHeaderLabels(head);
 
     for(int i=0;i<trainnumbers.size();i++)
     {
+        qDebug()<<trainnumbers.size();
         QSqlTableModel model;
         model.setTable("trains");
-        model.setFilter(tr("trainnumber = '%1'").arg(trainnumbers.at(i)));
+        model.setFilter(QString("trainnumber = '%1'").arg(trainnumbers.at(i)));
         model.select();
-        Train temp(model.record(0));
-        int beginnumber=temp.getindex(ui->startstationBox->currentIndex());
-        int endnumber=temp.getindex(ui->endstationBox->currentIndex());
-        QTime starttime=temp.getstation(beginnumber)->getstarttime();
-        QTime endtime=temp.getstation(endnumber)->getarrivetime();
+        qDebug()<<model.rowCount();
+        QSqlRecord record=model.record(0);
+        Train* temp=new Train(record);
+        int beginnumber=temp->getindex(ui->startstationBox->currentIndex()+1);
+        int endnumber=temp->getindex(ui->endstationBox->currentIndex()+1);
+        QTime starttime=temp->getstation(beginnumber)->getstarttime();
+        QTime endtime=temp->getstation(endnumber)->getarrivetime();
         int remaintickets;
         int bookedtickets=0;
+        qDebug()<<beginnumber<<endnumber;
         for(int i=beginnumber;i<endnumber;i++)
         {
-            bookedtickets=qMax(temp.getstation(i)->getbookednumber(),bookedtickets);
+            bookedtickets=qMax(temp->getstation(i)->getbookednumber(),bookedtickets);
 
         }
-        if(temp.getseattype()==SeatType::Bed)
+        qDebug()<<bookedtickets;
+        if(temp->getseattype()==SeatType::Bed)
         {
             remaintickets=60-bookedtickets;
         }
@@ -126,14 +147,19 @@ void SearchView::on_searchButton_clicked()
         {
             remaintickets=120-bookedtickets;
         }
+        qDebug()<<remaintickets;
 
         bool selectable=(remaintickets&&(starttime.secsTo(QTime::currentTime())>30*60));//判定是否可以订
+        selectable=true;
+        qDebug()<<selectable;
+        qDebug()<<starttime.toString();
+        qDebug()<<endtime.toString();
+        qDebug()<<temp->gettrainnumber();
 
-
-        ui->tableWidget->setItem(i,0,new QTableWidgetItem(temp.gettrainnumber()));
+        ui->tableWidget->setItem(i,0,new QTableWidgetItem(temp->gettrainnumber()));
         ui->tableWidget->setItem(i,1,new QTableWidgetItem(starttime.toString()));
         ui->tableWidget->setItem(i,2,new QTableWidgetItem(endtime.toString()));
-        ui->tableWidget->setItem(i,3,new QTableWidgetItem(remaintickets));
+        ui->tableWidget->setItem(i,3,new QTableWidgetItem(QString("%1").arg(remaintickets)));
         if(selectable)
         {
             ui->tableWidget->setItem(i,4,new QTableWidgetItem(QString("selectable")));
@@ -142,6 +168,9 @@ void SearchView::on_searchButton_clicked()
         {
              ui->tableWidget->setItem(i,4,new QTableWidgetItem(QString("unselectable")));
         }
+       delete temp;
+
+
 
 
 
@@ -155,9 +184,23 @@ void SearchView::on_searchButton_clicked()
 void SearchView::on_startstationBox_currentIndexChanged(int index)
 {
     ui->tableWidget->clear();
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableWidget->setFont(QFont("Helvetica"));
+
+    QStringList head;
+    head<<"trainnumber"<<"starttime"<<"arrivetime"<<"remaintickets"<<"status";
+    ui->tableWidget->setHorizontalHeaderLabels(head);
 }
 
 void SearchView::on_endstationBox_currentIndexChanged(int index)
 {
     ui->tableWidget->clear();
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableWidget->setFont(QFont("Helvetica"));
+
+    QStringList head;
+    head<<"trainnumber"<<"starttime"<<"arrivetime"<<"remaintickets"<<"status";
+    ui->tableWidget->setHorizontalHeaderLabels(head);
 }

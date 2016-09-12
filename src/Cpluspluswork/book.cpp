@@ -13,9 +13,9 @@ const double mile_co=0.5;
 const double speed_co[4]={1,2,3,4.5};
 const double seat_co[2]={2,1};
 
-double cal(int miles,SeatType seattype,SpeedType speedtype)
+int cal(int miles,SeatType seattype,SpeedType speedtype)
 {
-    return miles*mile_co*speed_co[static_cast<int>(speedtype)]*seat_co[static_cast<int>(seattype)];
+    return int(miles*mile_co*speed_co[static_cast<int>(speedtype)]*seat_co[static_cast<int>(seattype)]);
 
 }
 
@@ -34,14 +34,21 @@ book::book( User *user,  Train *train,  Profile *profile, int seatnumber, int be
 
     TrainStation* begin=this->train->getstation(beginnumber);
     TrainStation* end=this->train->getstation(endnumber);
+    qDebug()<<end->getarrivetime().toString();
+    qDebug()<<beginnumber;
+    qDebug()<<begin->getstarttime();
 
     ui->trainumberEdit->setText(this->train->gettrainnumber());
     ui->endtimeEdit->setTime(end->getarrivetime());
     ui->starttimeEdit->setTime(begin->getstarttime());
-    ui->costEdit->setText(QString::number(cal(end->getmiles()-begin->getmiles(),
+    qDebug()<<static_cast<int>(this->train->getseattype());
+    qDebug()<<cal(end->getmiles()-begin->getmiles(),
+                  this->train->getseattype(),this->train->getspeedtype());
+    ui->costEdit->setText(QString("%1").arg(cal(end->getmiles()-begin->getmiles(),
                               this->train->getseattype(),this->train->getspeedtype())));
-    ui->startstationEdit->setText(begin->getstation()->getname());
-    ui->endstationEdit->setText(end->getstation()->getname());
+    ui->startstationEdit->setText(QString("%1").arg(begin->getstation()->getname()));
+    ui->endstationEdit->setText(QString("%1").arg(end->getstation()->getname()));
+
 }
 
 book::~book()
