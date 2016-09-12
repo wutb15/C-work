@@ -28,13 +28,12 @@ SearchView::SearchView(User* user,Profile* profile,QWidget *parent) :
 
     }
     ui->tableWidget->setColumnCount(5);
-    ui->tableWidget->setRowCount(2);
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
     QStringList head;
     head<<"trainnumber"<<"starttime"<<"arrivetime"<<"remaintickets"<<"status";
     ui->tableWidget->setHorizontalHeaderLabels(head);
-    ui->tableWidget->setItem(0,1,new QTableWidgetItem("new"));
 
 
 

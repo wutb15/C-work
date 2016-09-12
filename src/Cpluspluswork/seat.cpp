@@ -25,11 +25,9 @@ SeatView::SeatView( Train *train, int beginnumber, int endnumber,  User *user,  
     switch(this->train->getseattype())
     {
         case SeatType::Bed:
-            qDebug()<<"hello";
             this->createChooseArea_B();
             break;
         case SeatType::Sit:
-            qDebug()<<"wa";
             this->createChooseArea_S();
             break;
         default:
@@ -94,6 +92,11 @@ void SeatView::createChooseArea_S()
 
      ui->seats->setColumnCount(7);
      ui->seats->setRowCount(20);
+
+     ui->seats->setEditTriggers(QAbstractItemView::NoEditTriggers);
+     ui->seats->setSelectionMode(QAbstractItemView::SingleSelection);
+     ui->seats->setFont(QFont("Helvetica"));
+
      int number=0;
      for(int i=0;i<20;i++)
      {
@@ -112,17 +115,14 @@ void SeatView::createChooseArea_S()
              else
              {
                  number++;
-                 QSqlQuery query;
                  QSqlTableModel model;
                  model.setTable("tickets");
                  QString filter=QString("trainnumber ='%1' AND seatnumber =%2 AND beginnumber<%3 AND endnumber >%4")
                          .arg(this->train->gettrainnumber()).arg(number).arg(endnumber).arg(beginnumber);
-                 qDebug()<<filter;
                  model.setFilter(filter);
                  model.select();
                  if(model.rowCount()>=1)
                  {
-                     qDebug()<<"here";
                      QTableWidgetItem* item =new QTableWidgetItem(QString("%1").arg(number));
                      item->setBackgroundColor(QColor(Qt::GlobalColor::gray));
                      item->setTextColor(QColor(Qt::GlobalColor::black));
