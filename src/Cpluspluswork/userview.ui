@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>348</width>
-    <height>244</height>
+    <width>493</width>
+    <height>436</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,9 +20,9 @@
   <widget class="QPushButton" name="infoButton">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>40</x>
      <y>150</y>
-     <width>81</width>
+     <width>101</width>
      <height>21</height>
     </rect>
    </property>
@@ -34,7 +34,7 @@ border-image: url(:/new/prefix1/color.png);</string>
     <string>修改个人信息</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="serachButton">
+  <widget class="QPushButton" name="searchButton">
    <property name="geometry">
     <rect>
      <x>50</x>
@@ -54,7 +54,7 @@ border-image: url(:/new/prefix1/color.png);</string>
   <widget class="QPushButton" name="ticketButton">
    <property name="geometry">
     <rect>
-     <x>190</x>
+     <x>320</x>
      <y>150</y>
      <width>81</width>
      <height>23</height>
@@ -71,7 +71,7 @@ border-image: url(:/new/prefix1/color.png);</string>
   <widget class="QPushButton" name="pwdButton">
    <property name="geometry">
     <rect>
-     <x>190</x>
+     <x>320</x>
      <y>80</y>
      <width>81</width>
      <height>21</height>
@@ -82,6 +82,40 @@ border-image: url(:/new/prefix1/color.png);</string>
    </property>
    <property name="text">
     <string>修改密码</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="exitButton">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>380</y>
+     <width>91</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/new/prefix1/color.png);
+</string>
+   </property>
+   <property name="text">
+    <string>退出</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="chargeButton">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>220</y>
+     <width>91</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/new/prefix1/color.png);
+</string>
+   </property>
+   <property name="text">
+    <string>充值</string>
    </property>
   </widget>
  </widget>

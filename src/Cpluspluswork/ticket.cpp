@@ -1,4 +1,4 @@
-#include "ticket.h"
+﻿#include "ticket.h"
 #include "ui_ticket.h"
 #include <QtGui>
 #include <QSqlQueryModel>
@@ -45,7 +45,8 @@ void TicketView::createTicketContent()
     model.setTable("tickets");
     model.setFilter(QString("username = '%1'").arg(user->getusername()));
     model.select();
-    ui->tableWidget->resize(model.rowCount(),6);
+    ui->tableWidget->setColumnCount(6);
+    ui->tableWidget->setRowCount(model.rowCount());
     ui->tableWidget->setHorizontalHeaderItem(0,new QTableWidgetItem(tr("trainnumber")));
     ui->tableWidget->setHorizontalHeaderItem(1,new QTableWidgetItem(tr("startstation")));
     ui->tableWidget->setHorizontalHeaderItem(2,new QTableWidgetItem(tr("endstation")));
@@ -59,17 +60,21 @@ void TicketView::createTicketContent()
     {
         Ticket ticket(model.record(i));
         QSqlTableModel trains;
+        trains.setTable("trains");
         QString trainnumber=ticket.gettrainnumber();
         trains.setFilter(QString("trainnumber = '%1'").arg(trainnumber));
+        trains.select();
+        qDebug()<<trains.rowCount();
         if(trains.rowCount()==1)
         {
             Train train(trains.record(0));
             ui->tableWidget->setItem(i,0,new QTableWidgetItem(train.gettrainnumber()));
-            ui->tableWidget->setItem(i,1,new QTableWidgetItem(train.getstation(ticket.getbeginnumber())->getstation()->getname()));
-            ui->tableWidget->setItem(i,2,new QTableWidgetItem(train.getstation(ticket.getendnumber())->getstation()->getname()));
-            ui->tableWidget->setItem(i,3,new QTableWidgetItem(train.getstation(ticket.getbeginnumber())->getstarttime().toString()));
-            ui->tableWidget->setItem(i,4,new QTableWidgetItem(train.getstation(ticket.getendnumber())->getarrivetime().toString()));
+            ui->tableWidget->setItem(i,1,new QTableWidgetItem(train.getstation(ticket.getbeginnumber()).getstation()->getname()));
+            ui->tableWidget->setItem(i,2,new QTableWidgetItem(train.getstation(ticket.getendnumber()).getstation()->getname()));
+            ui->tableWidget->setItem(i,3,new QTableWidgetItem(train.getstation(ticket.getbeginnumber()).getstarttime().toString()));
+            ui->tableWidget->setItem(i,4,new QTableWidgetItem(train.getstation(ticket.getendnumber()).getarrivetime().toString()));
             ui->tableWidget->setItem(i,5,new QTableWidgetItem(ticket.getProfile().getcardid()));
+
 
         }
 

@@ -7,6 +7,7 @@
 #include"ui_profile.h"
 #include"userview.h"
 #include"ui_userview.h"
+#include"charge.h"
 
 #include"ticket.h"
 class TicketView;
@@ -45,13 +46,12 @@ void UserView::on_infoButton_clicked()
 {
     ProfileView profileview1(user,this);
     profileview1.exec();
+    profile=user->getprofile();
 }
 
 void UserView::on_ticketButton_clicked()
 {
     TicketView ticketview1(user,this);
-
-
     ticketview1.exec();
 }
 
@@ -60,4 +60,10 @@ void UserView::on_ticketButton_clicked()
 void UserView::on_exitButton_clicked()
 {
    this->close();
+}
+
+void UserView::on_chargeButton_clicked()
+{
+    Charge charge(user,this);
+    charge.exec();
 }

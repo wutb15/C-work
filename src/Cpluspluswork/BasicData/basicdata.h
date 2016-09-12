@@ -33,7 +33,7 @@ public:
     Train(QSqlRecord& src);
     void load(QSqlRecord& src);
     QList<TrainStation*> getstations();
-    TrainStation* getstation(int number);
+    TrainStation getstation(int number);
     int getindex(int station_id);
     QString gettrainnumber()const{return trainnumber;}
     SeatType getseattype()const{return seattype;}
@@ -93,6 +93,7 @@ class TrainStation:public BasicData
 public:
     TrainStation(QSqlRecord& src);
     void load(QSqlRecord& src);
+    ~TrainStation();
     QString gettrainnumber()const{return trainnumber;}
     QTime   getstarttime()const{return starttime;}
     QTime	getarrivetime()const{return arrivetime;}
@@ -115,7 +116,7 @@ private:
 class Profile:public BasicData
 {
 public:
-    Profile(QSqlRecord* src);
+    Profile(QSqlRecord& src);
     void load(QSqlRecord& src);
     QString getsex()const{return sex;}
     int 	getid()const{return id;}

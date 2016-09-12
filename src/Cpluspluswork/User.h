@@ -13,12 +13,15 @@ public:
     ~User();
     QSqlRecord toSqlRecord();
     void load(QSqlRecord &src);
-    void charge(double money);
-    bool pay(double money);
+    void charge(int money);
+    bool pay(int money);
     QList<Profile*> getprofiles();
-    Profile*        getprofile(int number=0);
+    Profile*        getprofile();
+    int number;//this is the profilenumber;
+    void setnumber(int onumber){number=onumber;}
+    int getnumber()const{return number;}
 
-    double getmoney() const{ return money;}
+    int getmoney() const{ return money;}
 private:
     void submit();
 };

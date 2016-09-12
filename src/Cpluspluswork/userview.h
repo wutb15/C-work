@@ -10,7 +10,7 @@ class UserView : public QDialog
     Q_OBJECT
 
 public:
-    explicit UserView(User*user0,QWidget *parent = 0);
+    explicit UserView(User* user0,QWidget *parent = 0);
     ~UserView();
 
 private:
@@ -24,5 +24,6 @@ private slots:
     void on_ticketButton_clicked();
 
     void on_exitButton_clicked();
+    void on_chargeButton_clicked();
 };
 #endif // USERVIEW_H

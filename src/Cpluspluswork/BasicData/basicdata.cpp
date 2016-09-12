@@ -1,7 +1,7 @@
 #include "basicdata.h"
 #include"../BasicDataField.h"
 #include<QListIterator>
-
+#include<QDebug>
 QSqlRecord BasicData::toSqlRecord()
 {
     return *_record;
@@ -62,9 +62,9 @@ QList<TrainStation*> Train::getstations()
 
 }
 
-TrainStation* Train::getstation(int number)
+TrainStation Train::getstation(int number)
 {
-    return this->getstations().at(number);
+    return TrainStation(this->getstations().at(number)->toSqlRecord());
 
 
 }
@@ -96,6 +96,7 @@ Train::~Train()
         delete trainstations.at(i);
 
     }
+    trainstations.clear();
 }
 
 
@@ -109,9 +110,10 @@ Train::~Train()
 
 Station::Station(QSqlRecord &src)
 {
+    qDebug()<<"create station";
     this->id=src.value("id").toInt(0);
-    this->name=src.value("name").toString();
-    this->province=src.value("province").toString();
+    this->name=this->name.fromUtf8(src.value("name").toByteArray());
+    this->province=this->name.fromUtf8(src.value("province").toByteArray());
     _record=new QSqlRecord(src);
 }
 
@@ -142,6 +144,7 @@ TrainStation::TrainStation(QSqlRecord& src)
     this->miles=src.value("miles").toInt();
     this->trainnumber=src.value("trainnumber").toString();
     this->bookednumber=src.value("bookednumber").toInt();
+    _station=nullptr;
 }
 
 void TrainStation::load(QSqlRecord &src)
@@ -159,16 +162,31 @@ void TrainStation::load(QSqlRecord &src)
 
 Station* TrainStation::getstation()
 {
-    delete _station;
+    if(_station!=nullptr)
+    {
+        delete _station;
+        _station=nullptr;
+    }
     QSqlTableModel model;
     model.setTable("stations");
-    model.setFilter(QString("id = %1").arg(station_id));
+    model.setFilter(QString("id = '%1'").arg(station_id));
     model.select();
-    if(model.rowCount()==1)
-    {
-        _station=new Station(model.record(0));
-    }
+    qDebug()<<"rowcount = "<<model.rowCount();
+    QSqlRecord record=model.record(0);
+
+    _station=new Station(record);
     return _station;
+}
+
+
+TrainStation::~TrainStation()
+{
+    if(_station!=nullptr)
+    {
+
+        delete _station;
+        _station=nullptr;
+    }
 }
 
 
@@ -222,6 +240,7 @@ Ticket::Ticket(QSqlRecord &src)
 void Ticket::load(QSqlRecord &src)
 {
     delete _record;
+    _record=nullptr;
     this->id=src.value("id").toInt();
     this->seatnumber=src.value("seatnumber").toInt();
     this->trainnumber=src.value("trainnumber").toString();
@@ -235,12 +254,10 @@ Profile Ticket::getProfile()
 {
     QSqlTableModel model;
     model.setTable("profiles");
-    QString filter="id = '"+QString(this->profile_id)+"'";
+    QString filter=QString("id = %1").arg(this->profile_id);
     model.setFilter(filter);
-    if(model.rowCount()==1)
-    {
-        return Profile(model.record(0));
-    }
+    model.select();
+    return Profile(model.record(0));
 }
 
 

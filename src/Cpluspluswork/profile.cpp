@@ -19,6 +19,8 @@ ProfileView::ProfileView(User *user0,QWidget *parent) :
 {
     ui->setupUi(this);
     user=user0;
+    ui->currentEdit->setText(user->getprofile()->getname());
+
     createProfilePanel();
     ui->gridLayout->addWidget(profileView);
 }
@@ -100,4 +102,19 @@ void ProfileView::updateview()
 void ProfileView::on_closeButton_clicked()
 {
    this->close();
+}
+
+void ProfileView::on_switchButton_clicked()
+{
+    QModelIndex index=profileView->currentIndex();
+    if(index.isValid())
+    {
+        user->setnumber(index.row());
+        ui->currentEdit->setText(user->getprofile()->getname());
+        QMessageBox::information(this,tr("info"),tr("change profile successfully!"),QMessageBox::Close);
+    }
+    else
+    {
+        QMessageBox::warning(this,tr("error"),tr("unavailable selection"),QMessageBox::Close);
+    }
 }

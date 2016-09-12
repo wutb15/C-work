@@ -25,20 +25,30 @@ ManagerView::ManagerView(Manager* manager,QWidget *parent) :
     ui(new Ui::ManagerView)
 {
     this->manager=manager;
+    ui->setupUi(this);
 
     createTrainPanel();
     createStationPanel();
-    buttonBox->addButton(tr("addTrain"),QDialogButtonBox::ActionRole);
-    buttonBox->addButton(tr("deleteTrain"),QDialogButtonBox::ActionRole);
-    buttonBox->addButton(tr("editStation"),QDialogButtonBox::ActionRole);
-    QSplitter layout(Qt::Vertical);
-    layout.addWidget(trainPanel);
-    layout.addWidget(stationPanel);
-    layout.addWidget(buttonBox);//包含三个按钮：addTrain,deleteTrain,editTrain
-    connect(addtrain,SIGNAL(clicked()),this,SLOT(addTrain()));
-    connect(deletetrain,SIGNAL(clicked()),this,SLOT(deleteTrain()));
-    connect(editstation,SIGNAL(clicked()),this,SLOT(editStation()));
+    addtrainButton=new QPushButton(tr("addTrain"),this);
+    deletetrainButton=new QPushButton(tr("delete"),this);
+    editstationButton=new QPushButton(tr("edit_station"),this);
+    closeButton=new QPushButton(tr("Close"),this);
+    buttonBox=new QDialogButtonBox(this);
+    buttonBox->addButton(addtrainButton,QDialogButtonBox::ActionRole);
+    buttonBox->addButton(deletetrainButton,QDialogButtonBox::ActionRole);
+    buttonBox->addButton(editstationButton,QDialogButtonBox::ActionRole);
+    buttonBox->addButton(closeButton,QDialogButtonBox::ActionRole);
+
+    ui->buttonBoxLayout->addWidget(buttonBox);
+    ui->trainLayout->addWidget(trainView);
+    ui->trainstationLayout->addWidget(this->stationView);
+
+    connect(addtrainButton,SIGNAL(clicked()),this,SLOT(addTrain()));
+    connect(deletetrainButton,SIGNAL(clicked()),this,SLOT(deleteTrain()));
+    connect(editstationButton,SIGNAL(clicked()),this,SLOT(editStation()));
+    connect(closeButton,SIGNAL(clicked(bool)),this,SLOT(accept()));
     trainView->setCurrentIndex(trainModel->index(0,0));
+
 }
 enum
 {
@@ -50,7 +60,6 @@ enum
 
 void ManagerView::createTrainPanel()
 {
-    trainPanel=new QWidget;
     trainModel=new QSqlRelationalTableModel(this);
     //设置火车线路视图
     trainModel->setTable("trains");
@@ -68,6 +77,9 @@ void ManagerView::createTrainPanel()
     trainView->resizeColumnsToContents();
 
     trainView->horizontalHeader()->setStretchLastSection(true);
+
+    trainView->verticalHeader()->setHidden(true);
+
 
     trainLabel=new QLabel(tr("Train"));
     trainLabel->setBuddy(trainView);
@@ -89,15 +101,15 @@ enum
 
 void ManagerView::createStationPanel()
 {
-    stationPanel=new QWidget;
     stationModel=new QSqlRelationalTableModel(this);
     stationModel->setTable("trainstations");
     stationModel->setSort(Stations_id,Qt::AscendingOrder);
+    stationModel->setRelation(Stations_stationid,QSqlRelation("stations","id","name"));
     stationModel->setHeaderData(Stations_id,Qt::Horizontal,tr("id"));
     stationModel->setHeaderData(Stations_trainnumber,Qt::Horizontal,tr("trainnumber"));
     stationModel->setHeaderData(Stations_starttime,Qt::Horizontal,tr("starttime"));
     stationModel->setHeaderData(Stations_arrivetime,Qt::Horizontal,tr("arrivetime"));
-
+    stationModel->setHeaderData(Stations_stationid,Qt::Horizontal,tr("stationname"));
 
     stationView=new QTableView;
     stationView->setModel(stationModel);
@@ -107,7 +119,7 @@ void ManagerView::createStationPanel()
 
     stationView->horizontalHeader()->setStretchLastSection(true);
 
-    stationView->setColumnHidden(Stations_stationid, true);
+    stationView->setColumnHidden(Stations_id, true);
     stationView->setColumnHidden(Stations_miles, true);
     stationView->setColumnHidden(Stations_bookednumber, true);
 
@@ -122,12 +134,12 @@ void ManagerView::updateStationView()
     if(index.isValid())
     {
         QSqlRecord record=trainModel->record(index.row());
-        int id=record.value("trainnumber").toInt();
-        stationModel->setFilter(QString("trainnumber=%1").arg((id)));
+        QString id=record.value("trainnumber").toString();
+        stationModel->setFilter(QString("trainnumber= '%1'").arg((id)));
     }
     else
     {
-        stationModel->setFilter("trainnumber=-1");
+        stationModel->setFilter("trainnumber= -1");
         stationLabel->setText(tr("S&tations"));
     }
     stationModel->select();

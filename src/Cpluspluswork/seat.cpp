@@ -21,6 +21,7 @@ SeatView::SeatView( Train *train, int beginnumber, int endnumber,  User *user,  
     this->user=user;
     this->profile=profile;
     ui->setupUi(this);
+    ui->bookButton->setEnabled(false);
     switch(this->train->getseattype())
     {
         case SeatType::Bed:
@@ -100,7 +101,9 @@ void SeatView::createChooseArea_S()
          {
              if(j==3)
              {
-                  //ui->seats->item(i,j)->setBackgroundColor(QColor(Qt::GlobalColor::red));
+                 QTableWidgetItem* item=new QTableWidgetItem("plain");
+                 item->setBackgroundColor(QColor(Qt::GlobalColor::red));
+                 ui->seats->setItem(i,j,item);
                  continue;
 
 
@@ -110,13 +113,16 @@ void SeatView::createChooseArea_S()
              {
                  number++;
                  QSqlQuery query;
-                 query.prepare("SELECT * FROM users where trainnumber =:trainnumber AND seatnumber =:seatnumber AND beginnumber<:endnumber AND endnumber <:beginnumber");
-                 query.bindValue(":seatnumber",number);
-                 query.bindValue(":endnumber",endnumber);
-                 query.bindValue(":beginnumber",beginnumber);
-                 query.bindValue(":trainnumber",this->train->gettrainnumber());
-                 if(query.next())
+                 QSqlTableModel model;
+                 model.setTable("tickets");
+                 QString filter=QString("trainnumber ='%1' AND seatnumber =%2 AND beginnumber<%3 AND endnumber >%4")
+                         .arg(this->train->gettrainnumber()).arg(number).arg(endnumber).arg(beginnumber);
+                 qDebug()<<filter;
+                 model.setFilter(filter);
+                 model.select();
+                 if(model.rowCount()>=1)
                  {
+                     qDebug()<<"here";
                      QTableWidgetItem* item =new QTableWidgetItem(QString("%1").arg(number));
                      item->setBackgroundColor(QColor(Qt::GlobalColor::gray));
                      item->setTextColor(QColor(Qt::GlobalColor::black));
@@ -164,6 +170,7 @@ void SeatView::on_bookButton_clicked()
     }
     book book1(this->user,this->train,this->profile,number,this->beginnumber,this->endnumber,this);
     book1.exec();
+    this->close();
 
 }
 

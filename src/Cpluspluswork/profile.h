@@ -27,6 +27,7 @@ private slots:
 
     void on_changeButton_clicked();
     void on_closeButton_clicked();
+    void on_switchButton_clicked();
 };
 
 #endif // PROFILE_H

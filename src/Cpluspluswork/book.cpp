@@ -32,22 +32,23 @@ book::book( User *user,  Train *train,  Profile *profile, int seatnumber, int be
 
 
 
-    TrainStation* begin=this->train->getstation(beginnumber);
-    TrainStation* end=this->train->getstation(endnumber);
-    qDebug()<<end->getarrivetime().toString();
+    TrainStation begin=this->train->getstation(beginnumber);
+    TrainStation end=this->train->getstation(endnumber);
+    qDebug()<<end.getarrivetime().toString();
     qDebug()<<beginnumber;
-    qDebug()<<begin->getstarttime();
+    qDebug()<<begin.getstarttime().toString();
 
     ui->trainumberEdit->setText(this->train->gettrainnumber());
-    ui->endtimeEdit->setTime(end->getarrivetime());
-    ui->starttimeEdit->setTime(begin->getstarttime());
+    ui->endtimeEdit->setTime(end.getarrivetime());
+    ui->starttimeEdit->setTime(begin.getstarttime());
     qDebug()<<static_cast<int>(this->train->getseattype());
-    qDebug()<<cal(end->getmiles()-begin->getmiles(),
+    qDebug()<<cal(end.getmiles()-begin.getmiles(),
                   this->train->getseattype(),this->train->getspeedtype());
-    ui->costEdit->setText(QString("%1").arg(cal(end->getmiles()-begin->getmiles(),
+    ui->costEdit->setText(QString("%1").arg(cal(end.getmiles()-begin.getmiles(),
                               this->train->getseattype(),this->train->getspeedtype())));
-    ui->startstationEdit->setText(QString("%1").arg(begin->getstation()->getname()));
-    ui->endstationEdit->setText(QString("%1").arg(end->getstation()->getname()));
+    qDebug()<<begin.getstation()->getname();
+    ui->startstationEdit->setText(begin.getstation()->getname());
+    ui->endstationEdit->setText(end.getstation()->getname());
 
 }
 
@@ -97,23 +98,38 @@ void book::addNumber()
 
 void book::on_bookButton_clicked()
 {
-    double money =cal(train->getstation(endnumber)->getmiles()-train->getstation(beginnumber)->getmiles(),train->getseattype(),train->getspeedtype());
-    if(this->passenger->pay(money))
+
+    QSqlTableModel ticketmodel;
+    ticketmodel.setTable("tickets");
+    ticketmodel.setFilter(QString("trainnumber = '%1' and profile_id = '%2'").arg(train->gettrainnumber()).arg(profile->getid()));
+    ticketmodel.select();
+    if(ticketmodel.rowCount()>=1)
     {
-
-
-         createTicket(train->gettrainnumber(),seatnumber,beginnumber,endnumber,profile->getid(),this->passenger->getusername());
-         addNumber();
-
-        QMessageBox::information(this,QString("提示"),QString("订票成功"),QMessageBox::Close);
+        QMessageBox::warning(this,tr("warning"),tr("you have booked tickets in this train"),QMessageBox::Close);
     }
     else
     {
-        QMessageBox::warning(this,tr("warning"),tr("money is not enough"),QMessageBox::Close);
+        double money =cal(train->getstation(endnumber).getmiles()-train->getstation(beginnumber).getmiles(),train->getseattype(),train->getspeedtype());
+        if(this->passenger->pay(money))
+        {
+
+
+             createTicket(train->gettrainnumber(),seatnumber,beginnumber,endnumber,profile->getid(),this->passenger->getusername());
+             addNumber();
+
+            QMessageBox::information(this,QString("提示"),QString("订票成功"),QMessageBox::Close);
+        }
+        else
+        {
+            QMessageBox::warning(this,tr("warning"),tr("money is not enough"),QMessageBox::Close);
+        }
     }
+
+
+    this->close();
 }
 
-void book::on_exitButton_clicked()
+void book::on_closeButton_clicked()
 {
     this->close();
 }

@@ -6,6 +6,7 @@ User::User(QSqlRecord src)
     password=src.value("password").toString();
     money=src.value("money").toDouble();
     extrainformation=src.value("extrainformation").toString();
+    number=0;
 
     record=new QSqlRecord(src);
 
@@ -15,7 +16,7 @@ void User::load(QSqlRecord& src)
 {
     username=src.value("username").toString();
     password=src.value("password").toString();
-    money=src.value("money").toDouble();
+    money=src.value("money").toInt();
     extrainformation=src.value("extrainformation").toString();
 
     delete record;
@@ -49,7 +50,7 @@ QList<Profile*> User::getprofiles()
 
 }
 
-Profile* User::getprofile(int number)
+Profile* User::getprofile()
 {
     if(number<this->getprofiles().size())
     {
@@ -62,7 +63,7 @@ Profile* User::getprofile(int number)
 }
 
 
-bool User::pay(double money)
+bool User::pay(int money)
 {
     if(this->money>money)
     {
@@ -77,7 +78,7 @@ bool User::pay(double money)
     }
 }
 
-void User::charge(double money)
+void User::charge(int money)
 {
     this->money+=money;
     record->setValue("money",this->money);

@@ -49,7 +49,7 @@ void TrainStationForm::createContents()
 
     this->stationCombo=new QComboBox;
 
-    this->stationLabel=new QLabel("Station : ");
+    this->stationLabel=new QLabel("Station: ");
     this->stationLabel->setBuddy(this->stationCombo);
 
     this->milesEdit=new QSpinBox;
@@ -91,8 +91,8 @@ void TrainStationForm::createContents()
 
 
 
-    ui.gridLayout->setColumnStretch(0,1);//改变列宽
-    ui.gridLayout->setColumnStretch(1,3);
+    ui.gridLayout->setColumnStretch(0,2);//改变列宽
+    ui.gridLayout->setColumnStretch(1,5);
 
 
 
@@ -121,11 +121,12 @@ void TrainStationForm::createTable()
     this->trainnumberCombo->setModelColumn(
                 relationModel->fieldIndex("trainnumber"));
 
-    QSqlTableModel* relationModel2=tableModel->relationModel(static_cast<int>(TrainStationField::TrainStation_Id));
+    QSqlTableModel* relationModel2=tableModel->relationModel(static_cast<int>(TrainStationField::TrainStation_Station_Id));
 
     this->stationCombo->setModel(relationModel2);
     this->stationCombo->setModelColumn(
                 relationModel2->fieldIndex("name"));
+
 
 
 

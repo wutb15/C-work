@@ -35,6 +35,6 @@ private:
 
 private slots:
    void on_bookButton_clicked();
-   void on_exitButton_clicked();
+   void on_closeButton_clicked();
 };
 #endif // BOOK_H

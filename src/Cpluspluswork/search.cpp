@@ -49,31 +49,38 @@ SearchView::~SearchView()
 
 void SearchView::on_bookButton_clicked()
 {
-    if(ui->tableWidget->item(ui->tableWidget->currentRow(),4)->text()==tr("selectable"))
+    if(ui->tableWidget->currentIndex().isValid())
     {
-        QString trainnumber(ui->tableWidget->item(ui->tableWidget->currentRow(),0)->text());
-        QSqlTableModel model;
-        model.setTable("trains");
-        model.setFilter(QString("trainnumber = '%1'").arg(trainnumber));
-        model.select();
-
-        if(model.rowCount()==1)
+        if(ui->tableWidget->item(ui->tableWidget->currentRow(),4)->text()==tr("selectable"))
         {
-            Train* train =new Train(model.record(0));
-            qDebug()<<train->gettrainnumber();
-            SeatView seatview1(train,train->getindex(ui->startstationBox->currentIndex()+1),
+            QString trainnumber(ui->tableWidget->item(ui->tableWidget->currentRow(),0)->text());
+            QSqlTableModel model;
+            model.setTable("trains");
+            model.setFilter(QString("trainnumber = '%1'").arg(trainnumber));
+            model.select();
+
+            if(model.rowCount()==1)
+            {
+                Train* train =new Train(model.record(0));
+                qDebug()<<train->gettrainnumber();
+                SeatView seatview1(train,train->getindex(ui->startstationBox->currentIndex()+1),
                                train->getindex(ui->endstationBox->currentIndex()+1),this->user,this->profile,this);
-            seatview1.exec();
-            delete train;
+                seatview1.exec();
+                delete train;
+            }
+
+
+
         }
+        else
+        {
+            QMessageBox::warning(this,tr("error"),tr("not selectable"),QMessageBox::Close);
 
-
-
+        }
     }
     else
     {
-        QMessageBox::warning(this,tr("error"),tr("not selectable"),QMessageBox::Close);
-
+        QMessageBox::warning(this,tr("error"),tr("not select a row"),QMessageBox::Close);
     }
 
 
@@ -128,14 +135,15 @@ void SearchView::on_searchButton_clicked()
         Train* temp=new Train(record);
         int beginnumber=temp->getindex(ui->startstationBox->currentIndex()+1);
         int endnumber=temp->getindex(ui->endstationBox->currentIndex()+1);
-        QTime starttime=temp->getstation(beginnumber)->getstarttime();
-        QTime endtime=temp->getstation(endnumber)->getarrivetime();
+        QTime starttime=temp->getstation(beginnumber).getstarttime();
+        QTime endtime=temp->getstation(endnumber).getarrivetime();
         int remaintickets;
         int bookedtickets=0;
         qDebug()<<beginnumber<<endnumber;
+        qDebug()<<starttime.toString();
         for(int i=beginnumber;i<endnumber;i++)
         {
-            bookedtickets=qMax(temp->getstation(i)->getbookednumber(),bookedtickets);
+            bookedtickets=qMax(temp->getstation(i).getbookednumber(),bookedtickets);
 
         }
         qDebug()<<bookedtickets;

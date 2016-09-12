@@ -6,6 +6,7 @@
 #include<QSqlDatabase>
 #include<QMessageBox>
 #include<QSqlError>
+#include<QTextCodec>
 bool createConnection(const QString& path)
 {
     QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE");
@@ -24,6 +25,8 @@ bool createConnection(const QString& path)
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+
     const QString path="../../res/database.db3";
     if(!createConnection(path))
     {

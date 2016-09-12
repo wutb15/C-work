@@ -26,16 +26,15 @@ private:
     void createStationPanel();
     QSqlRelationalTableModel *trainModel;
     QSqlRelationalTableModel *stationModel;
-    QWidget *trainPanel;
-    QWidget *stationPanel;
     QLabel *trainLabel;
     QLabel *stationLabel;
     QTableView *trainView;
     QTableView *stationView;
     QDialogButtonBox *buttonBox;
-    QPushButton *addtrain;
-    QPushButton *deletetrain;
-    QPushButton *editstation;
+    QPushButton *addtrainButton;
+    QPushButton *deletetrainButton;
+    QPushButton *editstationButton;
+    QPushButton * closeButton;
     Manager* manager;
 };
 #endif // MANAGERVIEW_H
