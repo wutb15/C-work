@@ -115,7 +115,7 @@ private:
 class Profile:public BasicData
 {
 public:
-    Profile(QSqlRecord& src);
+    Profile(QSqlRecord* src);
     void load(QSqlRecord& src);
     QString getsex()const{return sex;}
     int 	getid()const{return id;}

@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>color.png</file>
+        <file>index.jpg</file>
+        <file>index2.jpg</file>
+        <file>index3.jpg</file>
+    </qresource>
+</RCC>

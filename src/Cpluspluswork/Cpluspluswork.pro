@@ -61,4 +61,5 @@ FORMS    +=mainwindow.ui \
     book.ui \
     ticket.ui
 
-RESOURCES +=work.qrc
+RESOURCES +=work.qrc \
+    background.qrc

@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">border-image: url(:/new/prefix1/index2.jpg);</string>
+  </property>
   <widget class="QLineEdit" name="oldpwd">
    <property name="geometry">
     <rect>
@@ -21,6 +24,9 @@
      <width>113</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/new/prefix1/color.png);</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="newpwd">
@@ -32,6 +38,9 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/new/prefix1/color.png);</string>
+   </property>
   </widget>
   <widget class="QLineEdit" name="confirmpwd">
    <property name="geometry">
@@ -42,6 +51,9 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/new/prefix1/color.png);</string>
+   </property>
   </widget>
   <widget class="QPushButton" name="pwdButton">
    <property name="geometry">
@@ -51,6 +63,10 @@
      <width>75</width>
      <height>23</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/new/prefix1/color.png);
+</string>
    </property>
    <property name="text">
     <string>更改密码</string>
@@ -103,6 +119,9 @@
      <width>75</width>
      <height>23</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/new/prefix1/color.png);</string>
    </property>
    <property name="text">
     <string>返回主界面</string>

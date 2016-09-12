@@ -46,6 +46,6 @@ void AccountView::on_pwdButton_clicked()
 void AccountView::on_backButton_clicked()
 {
     UserView userview1(user);
-    userview1.show();
+    userview1.exec();
     this->close();
 }

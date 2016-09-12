@@ -16,6 +16,9 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-image: url(:/new/prefix1/index2.jpg);</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
@@ -23,6 +26,9 @@
       <widget class="QTableWidget" name="seats">
        <property name="enabled">
         <bool>true</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-image: url(:/new/prefix1/color.png);</string>
        </property>
       </widget>
      </item>
@@ -32,6 +38,9 @@
     <widget class="QPushButton" name="bookButton">
      <property name="enabled">
       <bool>true</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/new/prefix1/color.png);</string>
      </property>
      <property name="text">
       <string>订票</string>

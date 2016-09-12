@@ -13,7 +13,10 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="">
+  <property name="styleSheet">
+   <string notr="true">background-image: url(:/new/prefix1/index3.jpg);</string>
+  </property>
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -24,10 +27,17 @@
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
-     <widget class="QTableWidget" name="tableWidget"/>
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/new/prefix1/color.png);</string>
+      </property>
+     </widget>
     </item>
     <item row="0" column="1">
      <widget class="QPushButton" name="closeButton">
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/new/prefix1/color.png);</string>
+      </property>
       <property name="text">
        <string>关闭</string>
       </property>

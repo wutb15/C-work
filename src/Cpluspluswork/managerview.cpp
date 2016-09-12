@@ -97,14 +97,14 @@ void ManagerView::createStationPanel()
     stationModel->setHeaderData(Stations_trainnumber,Qt::Horizontal,tr("trainnumber"));
     stationModel->setHeaderData(Stations_starttime,Qt::Horizontal,tr("starttime"));
     stationModel->setHeaderData(Stations_arrivetime,Qt::Horizontal,tr("arrivetime"));
-    stationModel->select();
+
 
     stationView=new QTableView;
     stationView->setModel(stationModel);
     stationView->setSelectionMode(QAbstractItemView::SingleSelection);
     stationView->setSelectionBehavior(QAbstractItemView::SelectRows);
     stationView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    stationView->resizeColumnsToContents();
+
     stationView->horizontalHeader()->setStretchLastSection(true);
 
     stationView->setColumnHidden(Stations_stationid, true);
@@ -112,7 +112,7 @@ void ManagerView::createStationPanel()
     stationView->setColumnHidden(Stations_bookednumber, true);
 
 
-    stationLabel=new QLabel(tr("Stations"));
+    stationLabel=new QLabel(tr("S&tations"));
     stationLabel->setBuddy(stationView);
 
 }
@@ -128,7 +128,7 @@ void ManagerView::updateStationView()
     else
     {
         stationModel->setFilter("trainnumber=-1");
-        stationLabel->setText(tr("Stations"));
+        stationLabel->setText(tr("S&tations"));
     }
     stationModel->select();
     stationView->horizontalHeader()->setVisible(stationModel->rowCount()>0);
