@@ -14,7 +14,8 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-image: url(:/new/prefix1/index3.jpg);</string>
+   <string notr="true">
+background-image: url(:/new/prefix1/index8.jpg);</string>
   </property>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
@@ -29,7 +30,8 @@
     <item row="0" column="0">
      <widget class="QTableWidget" name="tableWidget">
       <property name="styleSheet">
-       <string notr="true">background-image: url(:/new/prefix1/color.png);</string>
+       <string notr="true">
+border-image: url(:/new/prefix1/index9.jpg);</string>
       </property>
      </widget>
     </item>

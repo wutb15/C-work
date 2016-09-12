@@ -14,7 +14,8 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">border-image: url(:/new/prefix1/index3.jpg);</string>
+   <string notr="true">
+border-image: url(:/new/prefix1/index.jpg);</string>
   </property>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
@@ -43,6 +44,9 @@
       </item>
       <item row="0" column="1" colspan="2">
        <widget class="QLabel" name="confirmLabel">
+        <property name="styleSheet">
+         <string notr="true">border-image: url(:/new/prefix1/color.png);</string>
+        </property>
         <property name="text">
          <string>车票信息确认</string>
         </property>
@@ -63,6 +67,9 @@
       </item>
       <item row="1" column="0" colspan="2">
        <widget class="QLabel" name="trainnumberLabel">
+        <property name="styleSheet">
+         <string notr="true">border-image: url(:/new/prefix1/color.png);</string>
+        </property>
         <property name="text">
          <string>车次号</string>
         </property>
@@ -83,6 +90,9 @@
       </item>
       <item row="2" column="0" colspan="2">
        <widget class="QLabel" name="beginstationLabel">
+        <property name="styleSheet">
+         <string notr="true">border-image: url(:/new/prefix1/color.png);</string>
+        </property>
         <property name="text">
          <string>出发站</string>
         </property>
@@ -103,6 +113,9 @@
       </item>
       <item row="3" column="0" colspan="2">
        <widget class="QLabel" name="endstationLabel">
+        <property name="styleSheet">
+         <string notr="true">border-image: url(:/new/prefix1/color.png);</string>
+        </property>
         <property name="text">
          <string>终点站</string>
         </property>
@@ -123,6 +136,9 @@
       </item>
       <item row="4" column="0" colspan="2">
        <widget class="QLabel" name="starttimeLabel">
+        <property name="styleSheet">
+         <string notr="true">border-image: url(:/new/prefix1/color.png);</string>
+        </property>
         <property name="text">
          <string>出发时间</string>
         </property>
@@ -143,6 +159,9 @@
       </item>
       <item row="5" column="0" colspan="2">
        <widget class="QLabel" name="arrivetimeLabel">
+        <property name="styleSheet">
+         <string notr="true">border-image: url(:/new/prefix1/color.png);</string>
+        </property>
         <property name="text">
          <string>到达时间</string>
         </property>
@@ -163,6 +182,9 @@
       </item>
       <item row="6" column="0">
        <widget class="QLabel" name="moneyLabel">
+        <property name="styleSheet">
+         <string notr="true">border-image: url(:/new/prefix1/color.png);</string>
+        </property>
         <property name="text">
          <string>花费</string>
         </property>
@@ -195,6 +217,10 @@
     </item>
     <item row="1" column="2">
      <widget class="QPushButton" name="bookButton">
+      <property name="styleSheet">
+       <string notr="true">
+border-image: url(:/new/prefix1/color.png);</string>
+      </property>
       <property name="text">
        <string>订票</string>
       </property>
@@ -228,6 +254,9 @@
     </item>
     <item row="4" column="2">
      <widget class="QPushButton" name="closeButton">
+      <property name="styleSheet">
+       <string notr="true">border-image: url(:/new/prefix1/color.png);</string>
+      </property>
       <property name="text">
        <string>取消</string>
       </property>

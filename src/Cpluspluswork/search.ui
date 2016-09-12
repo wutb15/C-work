@@ -14,8 +14,7 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">
-background-image: url(:/new/prefix1/index3.jpg);</string>
+   <string notr="true">background-image: url(:/new/prefix1/index8.jpg);</string>
   </property>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
@@ -42,6 +41,9 @@ background-image: url(:/new/prefix1/index3.jpg);</string>
     </item>
     <item row="3" column="2">
      <widget class="QPushButton" name="bookButton">
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/new/prefix1/color.png);</string>
+      </property>
       <property name="text">
        <string>选座</string>
       </property>
@@ -60,7 +62,12 @@ background-image: url(:/new/prefix1/index3.jpg);</string>
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="startstationBox"/>
+       <widget class="QComboBox" name="startstationBox">
+        <property name="styleSheet">
+         <string notr="true">
+background-image: url(:/new/prefix1/color.png);</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="endlabel">
@@ -73,7 +80,11 @@ background-image: url(:/new/prefix1/index3.jpg);</string>
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="endstationBox"/>
+       <widget class="QComboBox" name="endstationBox">
+        <property name="styleSheet">
+         <string notr="true">background-image: url(:/new/prefix1/color.png);</string>
+        </property>
+       </widget>
       </item>
       <item>
        <spacer name="horizontalSpacer">
@@ -90,6 +101,10 @@ background-image: url(:/new/prefix1/index3.jpg);</string>
       </item>
       <item>
        <widget class="QPushButton" name="searchButton">
+        <property name="styleSheet">
+         <string notr="true">
+background-image: url(:/new/prefix1/color.png);</string>
+        </property>
         <property name="text">
          <string>搜索</string>
         </property>
@@ -100,7 +115,8 @@ background-image: url(:/new/prefix1/index3.jpg);</string>
     <item row="1" column="0" rowspan="2">
      <widget class="QTableWidget" name="tableWidget">
       <property name="styleSheet">
-       <string notr="true">border-image: url(:/new/prefix1/color.png);</string>
+       <string notr="true">
+border-image: url(:/new/prefix1/index9.jpg);</string>
       </property>
      </widget>
     </item>

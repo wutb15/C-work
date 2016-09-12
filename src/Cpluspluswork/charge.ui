@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">border-image: url(:/new/prefix1/index7.jpg);</string>
+  </property>
   <widget class="QPushButton" name="closeButton">
    <property name="geometry">
     <rect>
@@ -22,11 +25,14 @@
      <height>28</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/new/prefix1/color.png);</string>
+   </property>
    <property name="text">
     <string>退出</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -38,6 +44,9 @@
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QLabel" name="chargelabel">
+      <property name="styleSheet">
+       <string notr="true">border-image: url(:/new/prefix1/color.png);</string>
+      </property>
       <property name="text">
        <string>充值金额</string>
       </property>
@@ -47,7 +56,11 @@
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="chargeEdit"/>
+     <widget class="QLineEdit" name="chargeEdit">
+      <property name="styleSheet">
+       <string notr="true">border-image: url(:/new/prefix1/color.png);</string>
+      </property>
+     </widget>
     </item>
     <item>
      <spacer name="horizontalSpacer">
@@ -64,6 +77,9 @@
     </item>
     <item>
      <widget class="QPushButton" name="chargeButton">
+      <property name="styleSheet">
+       <string notr="true">border-image: url(:/new/prefix1/color.png);</string>
+      </property>
       <property name="text">
        <string>充值</string>
       </property>
@@ -71,7 +87,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -83,6 +99,9 @@
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
      <widget class="QLabel" name="moneyLabel">
+      <property name="styleSheet">
+       <string notr="true">border-image:url(:/new/prefix1/color.png)</string>
+      </property>
       <property name="text">
        <string>余额</string>
       </property>
@@ -92,7 +111,11 @@
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="moneyEdit"/>
+     <widget class="QLineEdit" name="moneyEdit">
+      <property name="styleSheet">
+       <string notr="true">border-image: url(:/new/prefix1/color.png);</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

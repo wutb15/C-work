@@ -14,7 +14,8 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">border-image: url(:/new/prefix1/index2.jpg);
+   <string notr="true">
+border-image: url(:/new/prefix1/index.jpg);
 </string>
   </property>
   <widget class="QPushButton" name="infoButton">
