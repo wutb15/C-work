@@ -149,8 +149,7 @@ void SearchView::on_searchButton_clicked()
             remaintickets=120-bookedtickets;
         }
 
-        bool selectable=(remaintickets&&(starttime.secsTo(QTime::currentTime())>30*60));//判定是否可以订
-        selectable=true;
+        bool selectable=(remaintickets&&(QTime::currentTime().secsTo(starttime)>30*60));//判定是否可以订
 
         ui->tableWidget->setItem(i,0,new QTableWidgetItem(temp->gettrainnumber()));
         ui->tableWidget->setItem(i,1,new QTableWidgetItem(starttime.toString()));
@@ -199,4 +198,9 @@ void SearchView::on_endstationBox_currentIndexChanged(int index)
     QStringList head;
     head<<"trainnumber"<<"starttime"<<"arrivetime"<<"remaintickets"<<"status";
     ui->tableWidget->setHorizontalHeaderLabels(head);
+}
+
+void SearchView::on_closeButton_clicked()
+{
+   this->close();
 }

@@ -26,6 +26,7 @@ private slots:
     void on_searchButton_clicked();
     void on_startstationBox_currentIndexChanged(int index);
     void on_endstationBox_currentIndexChanged(int index);
+    void on_closeButton_clicked();
 };
 
 #endif // SEARCH_H

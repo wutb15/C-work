@@ -48,7 +48,7 @@ void MainWindow::on_logButton_clicked()//用户点击登录按钮
             {
 
                 this->handler=new User(user.record(0));
-                UserView userview1(dynamic_cast<User*>(this->handler),this);
+                UserView userview1(dynamic_cast<User*>(this->handler));
                 this->close();
 
                 userview1.exec();
