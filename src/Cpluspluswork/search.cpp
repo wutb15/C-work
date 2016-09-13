@@ -133,8 +133,6 @@ void SearchView::on_searchButton_clicked()
         QTime endtime=temp->getstation(endnumber).getarrivetime();
         int remaintickets;
         int bookedtickets=0;
-        qDebug()<<beginnumber<<endnumber;
-        qDebug()<<starttime.toString();
         for(int i=beginnumber;i<endnumber;i++)
         {
             bookedtickets=qMax(temp->getstation(i).getbookednumber(),bookedtickets);
