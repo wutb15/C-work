@@ -40,7 +40,6 @@
 			int personalprofile_id;
 			QString extrainformation;
 		public:
-			void booktickets(Profile* profile,int begin_id,int end_id);
 			User(QSqlRecord &src);
 		
 		

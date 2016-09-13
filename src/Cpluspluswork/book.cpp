@@ -46,9 +46,9 @@ book::book( User *user,  Train *train,  Profile *profile, int seatnumber, int be
                   this->train->getseattype(),this->train->getspeedtype());
     ui->costEdit->setText(QString("%1").arg(cal(end.getmiles()-begin.getmiles(),
                               this->train->getseattype(),this->train->getspeedtype())));
-    qDebug()<<begin.getstation()->getname();
-    ui->startstationEdit->setText(begin.getstation()->getname());
-    ui->endstationEdit->setText(end.getstation()->getname());
+    qDebug()<<begin.getstation().getname();
+    ui->startstationEdit->setText(begin.getstation().getname());
+    ui->endstationEdit->setText(end.getstation().getname());
 
 }
 

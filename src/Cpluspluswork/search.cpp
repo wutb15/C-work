@@ -61,7 +61,6 @@ void SearchView::on_bookButton_clicked()
             if(model.rowCount()==1)
             {
                 Train* train =new Train(model.record(0));
-                qDebug()<<train->gettrainnumber();
                 SeatView seatview1(train,train->getindex(ui->startstationBox->currentIndex()+1),
                                train->getindex(ui->endstationBox->currentIndex()+1),this->user,this->profile,this);
                 seatview1.exec();
@@ -92,15 +91,12 @@ void SearchView::on_searchButton_clicked()
     start.setTable("trainstations");
     start.setFilter(QString("station_id = '%1'").arg(ui->startstationBox->currentIndex()+1));
     start.select();
-    qDebug()<<QString("station_id = '%1'").arg(ui->startstationBox->currentIndex()+1);
-    qDebug()<<start.rowCount();
 
     QList<QString>trainnumbers;
     int count=0;
     for(int i=0;i<start.rowCount();i++)
     {
         QString trainnumber=start.record(i).value(static_cast<int>(TrainStationField::TrainStation_TrainNumber)).toString();
-        qDebug()<<trainnumber;
         int miles=start.record(i).value(static_cast<int>(TrainStationField::TrainStation_Miles)).toInt();
         result.setTable("trainstations");
         result.setFilter(tr("station_id= %1 and trainnumber= '%2' and miles > %3").arg(ui->endstationBox->currentIndex()+1)
@@ -129,7 +125,6 @@ void SearchView::on_searchButton_clicked()
         model.setTable("trains");
         model.setFilter(QString("trainnumber = '%1'").arg(trainnumbers.at(i)));
         model.select();
-        qDebug()<<model.rowCount();
         QSqlRecord record=model.record(0);
         Train* temp=new Train(record);
         int beginnumber=temp->getindex(ui->startstationBox->currentIndex()+1);
@@ -145,7 +140,6 @@ void SearchView::on_searchButton_clicked()
             bookedtickets=qMax(temp->getstation(i).getbookednumber(),bookedtickets);
 
         }
-        qDebug()<<bookedtickets;
         if(temp->getseattype()==SeatType::Bed)
         {
             remaintickets=60-bookedtickets;
@@ -154,14 +148,9 @@ void SearchView::on_searchButton_clicked()
         {
             remaintickets=120-bookedtickets;
         }
-        qDebug()<<remaintickets;
 
         bool selectable=(remaintickets&&(starttime.secsTo(QTime::currentTime())>30*60));//判定是否可以订
         selectable=true;
-        qDebug()<<selectable;
-        qDebug()<<starttime.toString();
-        qDebug()<<endtime.toString();
-        qDebug()<<temp->gettrainnumber();
 
         ui->tableWidget->setItem(i,0,new QTableWidgetItem(temp->gettrainnumber()));
         ui->tableWidget->setItem(i,1,new QTableWidgetItem(starttime.toString()));

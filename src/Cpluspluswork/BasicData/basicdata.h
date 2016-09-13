@@ -14,6 +14,7 @@ enum class BasicDataType
     Ticket
 };
 //这里的类只用做显示不能更改，更改只能通过qsqltable;
+//所有带有get其他基本类型的函数都会运行一遍sql查询。
 class BasicData
 {
 public:
@@ -69,6 +70,7 @@ public:
     Ticket(QSqlRecord& src);
     void load(QSqlRecord& src);
     Profile getProfile();
+    Train   getTrain();
     int getid()const{return id;}
     int getseatnumber() const{return seatnumber;}
     QString gettrainnumber() const{return trainnumber;}
@@ -100,13 +102,12 @@ public:
     int 	getmiles()const{return miles;}
     int 	getbookednumber()const{return bookednumber;}
     int		getstation_id()const{return station_id;}
-    Station* getstation();
+    Station getstation();
 private:
     int id;
     QString trainnumber;
     QTime starttime;
     QTime arrivetime;
-    Station* _station;
     int station_id;
     int miles;
     int bookednumber;

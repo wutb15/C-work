@@ -39,6 +39,8 @@ enum
     Tickets_endnumber
 
 };
+
+//create the Tablwidget to show tickets
 void TicketView::createTicketContent()
 {
     QSqlTableModel model;
@@ -59,24 +61,16 @@ void TicketView::createTicketContent()
     for(int i=0;i<model.rowCount();i++)
     {
         Ticket ticket(model.record(i));
-        QSqlTableModel trains;
-        trains.setTable("trains");
-        QString trainnumber=ticket.gettrainnumber();
-        trains.setFilter(QString("trainnumber = '%1'").arg(trainnumber));
-        trains.select();
-        qDebug()<<trains.rowCount();
-        if(trains.rowCount()==1)
-        {
-            Train train(trains.record(0));
-            ui->tableWidget->setItem(i,0,new QTableWidgetItem(train.gettrainnumber()));
-            ui->tableWidget->setItem(i,1,new QTableWidgetItem(train.getstation(ticket.getbeginnumber()).getstation()->getname()));
-            ui->tableWidget->setItem(i,2,new QTableWidgetItem(train.getstation(ticket.getendnumber()).getstation()->getname()));
-            ui->tableWidget->setItem(i,3,new QTableWidgetItem(train.getstation(ticket.getbeginnumber()).getstarttime().toString()));
-            ui->tableWidget->setItem(i,4,new QTableWidgetItem(train.getstation(ticket.getendnumber()).getarrivetime().toString()));
-            ui->tableWidget->setItem(i,5,new QTableWidgetItem(ticket.getProfile().getcardid()));
+        Train train(ticket.getTrain());
+        ui->tableWidget->setItem(i,0,new QTableWidgetItem(train.gettrainnumber()));
+        ui->tableWidget->setItem(i,1,new QTableWidgetItem(train.getstation(ticket.getbeginnumber()).getstation().getname()));
+        ui->tableWidget->setItem(i,2,new QTableWidgetItem(train.getstation(ticket.getendnumber()).getstation().getname()));
+        ui->tableWidget->setItem(i,3,new QTableWidgetItem(train.getstation(ticket.getbeginnumber()).getstarttime().toString()));
+        ui->tableWidget->setItem(i,4,new QTableWidgetItem(train.getstation(ticket.getendnumber()).getarrivetime().toString()));
+        ui->tableWidget->setItem(i,5,new QTableWidgetItem(ticket.getProfile().getcardid()));
 
 
-        }
+
 
     }
 
