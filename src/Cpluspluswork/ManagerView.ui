@@ -14,7 +14,7 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">border-image: url(:/new/prefix1/index9.jpg);</string>
+   <string notr="true">#ManagerView{border-image: url(:/new/prefix1/index9.jpg);}</string>
   </property>
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">

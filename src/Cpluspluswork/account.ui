@@ -14,7 +14,7 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">border-image: url(:/new/prefix1/index.jpg);</string>
+   <string notr="true">#AccountView{border-image: url(:/new/prefix1/index.jpg);}</string>
   </property>
   <widget class="QLineEdit" name="oldpwd">
    <property name="geometry">

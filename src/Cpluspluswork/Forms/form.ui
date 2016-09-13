@@ -14,7 +14,7 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">border-image: url(:/new/prefix1/index9.jpg);
+   <string notr="true">#Form{border-image: url(:/new/prefix1/index9.jpg);}
 </string>
   </property>
   <widget class="QPushButton" name="firstButton">
@@ -27,7 +27,8 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">
+    <string notr="true">color: rgb(0, 0, 0);
+font: 75 10pt &quot;Times New Roman&quot;;
 border-image: url(:/new/prefix1/index8.jpg);</string>
    </property>
    <property name="text">
@@ -44,7 +45,8 @@ border-image: url(:/new/prefix1/index8.jpg);</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/new/prefix1/index8.jpg);</string>
+    <string notr="true">border-image: url(:/new/prefix1/index8.jpg);
+font: 75 10pt &quot;Times New Roman&quot;;</string>
    </property>
    <property name="text">
     <string>&lt;&lt;Previous</string>
@@ -60,7 +62,8 @@ border-image: url(:/new/prefix1/index8.jpg);</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/new/prefix1/index8.jpg);</string>
+    <string notr="true">border-image: url(:/new/prefix1/index8.jpg);
+font: 75 10pt &quot;Times New Roman&quot;;</string>
    </property>
    <property name="text">
     <string>Next&gt;&gt;</string>
@@ -76,7 +79,8 @@ border-image: url(:/new/prefix1/index8.jpg);</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/new/prefix1/index8.jpg);</string>
+    <string notr="true">border-image: url(:/new/prefix1/index8.jpg);
+font: 75 10pt &quot;Times New Roman&quot;;</string>
    </property>
    <property name="text">
     <string>Last&gt;&gt;</string>
@@ -106,7 +110,8 @@ border-image: url(:/new/prefix1/index8.jpg);</string>
     <item>
      <widget class="QPushButton" name="addButton">
       <property name="styleSheet">
-       <string notr="true">border-image: url(:/new/prefix1/index8.jpg);</string>
+       <string notr="true">border-image: url(:/new/prefix1/index8.jpg);
+font: 75 10pt &quot;Times New Roman&quot;;</string>
       </property>
       <property name="text">
        <string>Add</string>
@@ -116,7 +121,8 @@ border-image: url(:/new/prefix1/index8.jpg);</string>
     <item>
      <widget class="QPushButton" name="deleteButton">
       <property name="styleSheet">
-       <string notr="true">border-image: url(:/new/prefix1/index8.jpg);</string>
+       <string notr="true">border-image: url(:/new/prefix1/index8.jpg);
+font: 75 10pt &quot;Times New Roman&quot;;</string>
       </property>
       <property name="text">
        <string>Delete</string>
@@ -126,7 +132,8 @@ border-image: url(:/new/prefix1/index8.jpg);</string>
     <item>
      <widget class="QPushButton" name="confirmButton">
       <property name="styleSheet">
-       <string notr="true">border-image: url(:/new/prefix1/index8.jpg);</string>
+       <string notr="true">border-image: url(:/new/prefix1/index8.jpg);
+font: 75 10pt &quot;Times New Roman&quot;;</string>
       </property>
       <property name="text">
        <string>Confirm</string>
